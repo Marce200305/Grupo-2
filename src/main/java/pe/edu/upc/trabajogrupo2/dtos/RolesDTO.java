@@ -1,7 +1,5 @@
 package pe.edu.upc.trabajogrupo2.dtos;
 
-import java.time.LocalDate;
-
 public class RolesDTO {
     private int idRol;
     private String nameRol;
