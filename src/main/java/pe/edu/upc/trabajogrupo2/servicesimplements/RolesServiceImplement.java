@@ -14,4 +14,24 @@ public class RolesServiceImplement implements IRolesService {
 
     @Override
     public List<Roles> List() {return dR.findAll();}
+
+    @Override
+    public void insert(Roles roles) {
+        dR.save(roles);
+    }
+
+    @Override
+    public void delete(int id) {
+        dR.deleteById(id);
+    }
+
+    @Override
+    public void update(Roles roles) {
+        dR.save(roles);
+    }
+
+    @Override
+    public Roles ListId(int id) {
+        return dR.findById(id).orElse(null);
+    }
 }
