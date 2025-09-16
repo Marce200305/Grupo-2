@@ -4,7 +4,7 @@ import pe.edu.upc.trabajogrupo2.entities.Roles;
 
 import java.time.LocalDate;
 
-public class UsuarioTerapeutaDTOInsert {
+public class UsuarioTerapeutaDTOList {
 
     private int idUsuario;
     private String nameUsuario;
@@ -14,16 +14,6 @@ public class UsuarioTerapeutaDTOInsert {
     private LocalDate fechaNacimiento;
     private String gmailUsuario;
     private int DNIUsuario;
-    private String contrasenaUsuario;
-    private Roles roles;
-
-    public Roles getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Roles roles) {
-        this.roles = roles;
-    }
 
     public int getIdUsuario() {
         return idUsuario;
@@ -89,11 +79,4 @@ public class UsuarioTerapeutaDTOInsert {
         this.DNIUsuario = DNIUsuario;
     }
 
-    public String getContrasenaUsuario() {
-        return contrasenaUsuario;
-    }
-
-    public void setContrasenaUsuario(String contrasenaUsuario) {
-        this.contrasenaUsuario = contrasenaUsuario;
-    }
 }
