@@ -14,28 +14,28 @@ public class Usuarios {
     @Column(name ="nameUsuario", length = 50,nullable = false)
     private String nameUsuario;
 
-    @Column(name ="nameUsuario", length = 50,nullable = false)
+    @Column(name ="apellidoUsuario", length = 50,nullable = false)
     private String apellidoUsuario;
 
-    @Column(name ="nameUsuario",nullable = false)
+    @Column(name ="fechaUsuario",nullable = false)
     private LocalDate fechaNacimiento;
 
-    @Column(name ="nameUsuario", length = 50,nullable = false)
+    @Column(name ="gmailUsuario", length = 50,nullable = false)
     private String gmailUsuario;
 
-    @Column(name ="nameUsuario", length = 50,nullable = false)
+    @Column(name ="DNIUsuario", length = 50,nullable = false)
     private int DNIUsuario;
 
-    @Column(name ="nameUsuario", length = 50,nullable = false)
+    @Column(name ="contrasenaUsuario", length = 50,nullable = false)
     private String contrasenaUsuario;
 
-    @Column(name ="nameUsuario", length = 50,nullable = false)
+    @Column(name ="especialidadUsuario", length = 50,nullable = false)
     private String especialidadUsuario;
 
-    @Column(name ="nameUsuario", length = 50,nullable = false)
+    @Column(name ="numerocolegiaturaUsuario", length = 50,nullable = false)
     private int numerocolegiaturaUsuario;
 
-    @Column(name ="nameUsuario", length = 50,nullable = false)
+    @Column(name ="apoderadoUsuario", length = 50,nullable = false)
     private String apoderadoUsuario;
 
     @ManyToOne
