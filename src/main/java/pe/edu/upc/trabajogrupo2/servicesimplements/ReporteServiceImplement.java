@@ -1,14 +1,15 @@
 package pe.edu.upc.trabajogrupo2.servicesimplements;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pe.edu.upc.trabajogrupo2.entities.Reporte;
 import pe.edu.upc.trabajogrupo2.repositories.IReporteRepository;
 import pe.edu.upc.trabajogrupo2.servicesinterfaces.IReporteService;
 
 import java.util.List;
 
+@Service
 public class ReporteServiceImplement implements IReporteService {
-
     @Autowired
     private IReporteRepository dR;
     @Override

@@ -21,9 +21,9 @@ public class PagoController {
 
     @GetMapping
     public List<PagoDTOList> listarPagos() {
-        return pS.List().stream().map(h->{
+        return pS.List().stream().map(p->{
             ModelMapper m = new ModelMapper();
-            return m.map(h, PagoDTOList.class);
+            return m.map(p, PagoDTOList.class);
         }).collect(Collectors.toList());
     }
 
