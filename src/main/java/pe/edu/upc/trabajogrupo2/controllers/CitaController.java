@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.trabajogrupo2.dtos.AlertaDTOList;
 import pe.edu.upc.trabajogrupo2.dtos.CitaDTOInsert;
 import pe.edu.upc.trabajogrupo2.dtos.CitaDTOList;
 import pe.edu.upc.trabajogrupo2.entities.Citas;
@@ -46,7 +45,7 @@ public class CitaController {
                     .body("No hay registro con el ID: " + id);
         }
         ModelMapper m = new ModelMapper();
-        AlertaDTOList dto = m.map(c,AlertaDTOList.class);
+        CitaDTOList dto = m.map(c,CitaDTOList.class);
         return ResponseEntity.ok(dto);
     }
 
