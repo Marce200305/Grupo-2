@@ -58,15 +58,15 @@ public class AlertaController {
                     .body("No hay registro con el ID: " + id);
         }
         alertaService.delete(id);
-        return ResponseEntity.ok("Alerta "+a.getTituloAlerta()+" eliminado");
+        return ResponseEntity.ok("Alerta "+id+" eliminada");
     }
 
     @PutMapping()
     public ResponseEntity<String> modificarAlerta(@RequestBody AlertaDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Alertas a = m.map(dto,Alertas.class);
-        Alertas existente = alertaService.ListId(a.getIdAlerta());
-        if (existente == null) {
+        Alertas ex = alertaService.ListId(a.getIdAlerta());
+        if (ex == null) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body("No hay registro con el ID: " + a.getIdAlerta());

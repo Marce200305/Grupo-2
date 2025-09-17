@@ -1,14 +1,15 @@
 package pe.edu.upc.trabajogrupo2.servicesimplements;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pe.edu.upc.trabajogrupo2.entities.Citas;
 import pe.edu.upc.trabajogrupo2.repositories.ICitasRepository;
-import pe.edu.upc.trabajogrupo2.servicesinterfaces.ICItasService;
+import pe.edu.upc.trabajogrupo2.servicesinterfaces.ICitasService;
 
 import java.util.List;
 
-public class CitasServiceImplement implements ICItasService {
-
+@Service
+public class CitasServiceImplement implements ICitasService {
     @Autowired
     private ICitasRepository dR;
     @Override
