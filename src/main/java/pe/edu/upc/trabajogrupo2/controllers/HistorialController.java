@@ -1,0 +1,77 @@
+package pe.edu.upc.trabajogrupo2.controllers;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.trabajogrupo2.dtos.HistorialDTOInsert;
+import pe.edu.upc.trabajogrupo2.dtos.HistorialDTOList;
+import pe.edu.upc.trabajogrupo2.entities.Historial;
+import pe.edu.upc.trabajogrupo2.servicesinterfaces.IHistorialService;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@RestController
+@RequestMapping("/historiales")
+public class HistorialController {
+    @Autowired
+    private IHistorialService hS;
+
+    @GetMapping
+    public List<HistorialDTOList> listarHistoriales() {
+        return hS.List().stream().map(h->{
+            ModelMapper m = new ModelMapper();
+            return m.map(h, HistorialDTOList.class);
+        }).collect(Collectors.toList());
+    }
+
+    @PostMapping
+    public ResponseEntity<String> insertarHistorial(@RequestBody HistorialDTOInsert dto) {
+        ModelMapper m = new ModelMapper();
+        Historial h = m.map(dto,Historial.class);
+        hS.insert(h);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Historial "+h.getDocumentacionHistorial()
+                +" creado");
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> listarHistorialPorId(@PathVariable("id") Integer id) {
+        Historial h = hS.ListId(id);
+        if (h == null) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("No hay registro con el ID: " + id);
+        }
+        ModelMapper m = new ModelMapper();
+        HistorialDTOList dto = m.map(h, HistorialDTOList.class);
+        return ResponseEntity.ok(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> eliminarHistorial(@PathVariable("id") Integer id) {
+        Historial h = hS.ListId(id);
+        if (h == null) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("No hay registro con el ID: " + id);
+        }
+        hS.delete(id);
+        return ResponseEntity.ok("Historial "+id+" eliminado");
+    }
+
+    @PutMapping
+    public ResponseEntity<String> modificarHistorial(@RequestBody HistorialDTOInsert dto) {
+        ModelMapper m = new ModelMapper();
+        Historial h = m.map(dto,Historial.class);
+        Historial ex = hS.ListId(h.getIdHistorial());
+        if (ex == null) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("No hay registro con el ID: " + h.getIdHistorial());
+        }
+        hS.update(h);
+        return ResponseEntity.ok("Historial "+h.getDocumentacionHistorial()+" modificado");
+    }
+}

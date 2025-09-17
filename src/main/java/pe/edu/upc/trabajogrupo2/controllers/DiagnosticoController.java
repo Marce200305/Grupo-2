@@ -72,6 +72,6 @@ public class DiagnosticoController {
                     .body("No hay registro con el ID: " + d.getIdDiagnostico());
         }
         dS.update(d);
-        return ResponseEntity.ok("Diagnostico "+d.getSeveridadDiagnostico()+" modificada");
+        return ResponseEntity.ok("Diagnostico "+d.getSeveridadDiagnostico()+" modificado");
     }
 }
