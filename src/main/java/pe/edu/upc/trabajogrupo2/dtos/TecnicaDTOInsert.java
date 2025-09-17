@@ -1,34 +1,12 @@
-package pe.edu.upc.trabajogrupo2.entities;
+package pe.edu.upc.trabajogrupo2.dtos;
 
-import jakarta.persistence.*;
+import pe.edu.upc.trabajogrupo2.entities.Sesiones;
 
-@Entity
-@Table(name = "Tecnicas")
-public class Tecnicas {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TecnicaDTOInsert {
     private int idTecnica;
-
-    @Column(name = "nombreTecnicas", length = 10, nullable = false)
     private String nombreTecnica;
-
-    @Column(name = "descripcionTecnicas", length = 50,nullable = false)
     private String descripcionTecnica;
-
-    @ManyToOne
-    @JoinColumn(name = "idSesion")
     private Sesiones sesiones;
-
-    public Tecnicas() {
-    }
-
-    public Tecnicas(int idTecnica, String nombreTecnica, String descripcionTecnica, Sesiones sesiones) {
-        this.idTecnica = idTecnica;
-        this.nombreTecnica = nombreTecnica;
-        this.descripcionTecnica = descripcionTecnica;
-        this.sesiones = sesiones;
-    }
 
     public int getIdTecnica() {
         return idTecnica;

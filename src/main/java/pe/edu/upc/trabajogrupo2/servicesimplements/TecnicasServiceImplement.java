@@ -1,14 +1,15 @@
 package pe.edu.upc.trabajogrupo2.servicesimplements;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pe.edu.upc.trabajogrupo2.entities.Tecnicas;
 import pe.edu.upc.trabajogrupo2.repositories.ITecnicasRepository;
 import pe.edu.upc.trabajogrupo2.servicesinterfaces.ITecnicasService;
 
 import java.util.List;
 
+@Service
 public class TecnicasServiceImplement implements ITecnicasService {
-
     @Autowired
     private ITecnicasRepository dR;
 
