@@ -1,6 +1,5 @@
 package pe.edu.upc.trabajogrupo2.servicesinterfaces;
 
-import pe.edu.upc.trabajogrupo2.entities.Roles;
 import pe.edu.upc.trabajogrupo2.entities.Usuarios;
 
 import java.util.List;
