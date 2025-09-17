@@ -13,25 +13,25 @@ public class Tratamientos {
     private int idTratamiento;
 
     @ManyToOne
-    @JoinColumn(name = "id_Historial", nullable = false)
+    @JoinColumn(name = "idHistorial")
     private Historial historial;
 
-    @Column(name = "objetivo", length = 10000, nullable = false)
+    @Column(name = "objetivoTratamientos", length = 50, nullable = false)
     private String objetivoTratamiento;
 
-    @Column(name = "plan", length = 10000, nullable = false)
+    @Column(name = "planTratamientos", length = 50, nullable = false)
     private String planTratamiento;
 
-    @Column(name = "fecha_inicio", nullable = false)
+    @Column(name = "fechainicioTratammientos", nullable = false)
     private LocalDateTime fechaInicioTratamiento;
 
-    @Column(name = "fecha_fin")
+    @Column(name = "fechafinTratamientos", nullable = false)
     private LocalDateTime fechaFinTratamiento;
 
-    @Column(name = "terapeuta", length = 150, nullable = false)
+    @Column(name = "terapeutaTratamientos", length = 50, nullable = false)
     private String terapeutaTratamiento;
 
-    @Column(name = "progreso")
+    @Column(name = "progresoTratamientos",nullable = false)
     private int progresoTratamiento;
 
     public Tratamientos() {

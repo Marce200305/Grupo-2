@@ -10,14 +10,14 @@ public class Tecnicas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idTecnica;
 
-    @Column(name = "nombre", length = 100, nullable = false)
+    @Column(name = "nombreTecnicas", length = 10, nullable = false)
     private String nombreTecnica;
 
-    @Column(name = "descripcion", length = 500)
+    @Column(name = "descripcionTecnicas", length = 50,nullable = false)
     private String descripcionTecnica;
 
     @ManyToOne
-    @JoinColumn(name = "idSesion", nullable = false)
+    @JoinColumn(name = "idSesion")
     private Sesiones sesiones;
 
     public Tecnicas() {

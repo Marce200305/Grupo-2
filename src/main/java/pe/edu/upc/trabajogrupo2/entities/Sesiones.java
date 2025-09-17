@@ -12,16 +12,16 @@ public class Sesiones {
     private int idSesion;
 
     @ManyToOne
-    @JoinColumn(name = "id_Cita", nullable = false)
+    @JoinColumn(name = "idCita")
     private Citas citas;
 
-    @Column(name = "numero", length = 10, nullable = false)
+    @Column(name = "numeroSesion", length = 50, nullable = false)
     private String numeroSesion;
 
-    @Column(name = "fecha_inicio", nullable = false)
+    @Column(name = "fechainicioSesion", nullable = false)
     private LocalDateTime fechaInicioSesion;
 
-    @Column(name = "fecha_fin", nullable = false)
+    @Column(name = "fechafinSesion", nullable = false)
     private LocalDateTime fechaFinSesion;
 
     public Sesiones() {

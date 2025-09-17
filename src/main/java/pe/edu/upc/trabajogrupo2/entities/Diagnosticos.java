@@ -13,22 +13,22 @@ public class Diagnosticos {
     private int idDiagnostico;
 
     @ManyToOne
-    @JoinColumn(name = "id_Historial", nullable = false)
+    @JoinColumn(name = "idHistorial")
     private Historial historial;
 
-    @Column(name = "fecha_registro", nullable = false)
+    @Column(name = "fecharegistroDiagnostico", nullable = false)
     private LocalDateTime fechaRegistroDiagnostico;
 
-    @Column(name = "descripcion", length = 10000, nullable = false)
+    @Column(name = "descripcionDiagnostico", length = 50, nullable = false)
     private String descripcionDiagnostico;
 
-    @Column(name = "terapeuta", length = 150, nullable = false)
+    @Column(name = "terapeutaDiagnostico", length = 50, nullable = false)
     private String terapeutaDiagnostico;
 
-    @Column(name = "severidad", length = 100,nullable = false)
+    @Column(name = "severidadDiagnostico", length = 50,nullable = false)
     private String severidadDiagnostico;
 
-    @Column(name = "firma", length = 100)
+    @Column(name = "firmaDiagnostico", length = 50,nullable = false)
     private String firmaDiagnostico;
 
     public Diagnosticos() {

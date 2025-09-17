@@ -11,19 +11,19 @@ public class Videoconferencias {
     private int idVideoconferencia; // ← PK
 
     @ManyToOne
-    @JoinColumn(name = "id_Cita", nullable = false)
+    @JoinColumn(name = "idCita")
     private Citas citas;
 
-    @Column(name = "proveedor", length = 100, nullable = false)
+    @Column(name = "proveedorVideoconferencia", length = 50, nullable = false)
     private String proveedorVideoconferencia;
 
-    @Column(name = "join_url", columnDefinition = "TEXT")
+    @Column(name = "join_urlVideoconferencia", columnDefinition = "TEXT",nullable = false)
     private String joinUrlVideoconferencia;
 
-    @Column(name = "star_url", columnDefinition = "TEXT")
+    @Column(name = "star_urlVideoconferencia", columnDefinition = "TEXT",nullable = false)
     private String starUrlVideoconferencia;
 
-    @Column(name = "pass_api", columnDefinition = "JSONB")
+    @Column(name = "pass_apiVideoconferencia", columnDefinition = "JSONB",nullable = false)
     private String passApiVideoconferencia;
 
 

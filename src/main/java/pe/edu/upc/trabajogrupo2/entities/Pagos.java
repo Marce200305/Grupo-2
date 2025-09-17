@@ -14,26 +14,25 @@ public class Pagos {
     private int idPago;
 
     @ManyToOne
-    @JoinColumn(name = "id_Cita", nullable = false)
+    @JoinColumn(name = "id_Cita")
     private Citas citas;
 
-    @Column(name = "monto", precision = 10, scale = 2, nullable = false)
-    private BigDecimal montoPago;
+    @Column(name = "montoPagos", nullable = false)
+    private double montoPago;
 
-    @Column(name = "pass_api", columnDefinition = "JSONB")
+    @Column(name = "passapiPagos", columnDefinition = "JSONB",nullable = false)
     private String passApiPago;
 
-    @Column(name = "fecha", nullable = false)
+    @Column(name = "fechaPagos", nullable = false)
     private LocalDateTime fechaPago;
 
-    @Column(name = "estado", length = 30, nullable = false)
+    @Column(name = "estadoPagos", length = 30, nullable = false)
     private String estadoPago;
 
     public Pagos() {
     }
 
-    public Pagos(int idPago, Citas citas, BigDecimal montoPago, String passApiPago,
-                 LocalDateTime fechaPago, String estadoPago) {
+    public Pagos(int idPago, Citas citas, double montoPago, String passApiPago, LocalDateTime fechaPago, String estadoPago) {
         this.idPago = idPago;
         this.citas = citas;
         this.montoPago = montoPago;
@@ -58,11 +57,11 @@ public class Pagos {
         this.citas = citas;
     }
 
-    public BigDecimal getMontoPago() {
+    public double getMontoPago() {
         return montoPago;
     }
 
-    public void setMontoPago(BigDecimal montoPago) {
+    public void setMontoPago(double montoPago) {
         this.montoPago = montoPago;
     }
 

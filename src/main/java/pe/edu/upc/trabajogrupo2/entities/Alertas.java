@@ -11,16 +11,16 @@ public class Alertas {
     private int idAlerta;
 
     @ManyToOne
-    @JoinColumn(name = "id_Cita", nullable = false)
+    @JoinColumn(name = "idCita")
     private Citas citas;
 
-    @Column(name = "canal", length = 1000, nullable = false)
+    @Column(name = "canalAlerta", length = 50, nullable = false)
     private String canalAlerta;
 
-    @Column(name = "titulo", length = 200, nullable = false)
+    @Column(name = "tituloAlerta", length = 50, nullable = false)
     private String tituloAlerta;
 
-    @Column(name = "mensaje", length = 1000, nullable = false)
+    @Column(name = "mensajeAlerta", length = 50, nullable = false)
     private String mensajeAlerta;
 
     public Alertas() {

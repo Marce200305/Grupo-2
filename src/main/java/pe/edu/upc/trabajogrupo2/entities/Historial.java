@@ -13,10 +13,10 @@ public class Historial {
     private int idHistorial;
 
     @ManyToOne
-    @JoinColumn(name = "id_Usuario", nullable = false)
+    @JoinColumn(name = "idUsuario")
     private Usuarios usuarios;
 
-    @Column(name = "documentacion", columnDefinition = "BLOB")
+    @Column(name = "documentacionHistorial", columnDefinition = "BLOB",nullable = false)
     private Blob documentacionHistorial;
 
     public Historial() {

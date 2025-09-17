@@ -11,23 +11,23 @@ public class Citas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCita;
 
-    @Column(name = "estado", length = 30, nullable = false)
+    @Column(name = "estadoCita", length = 50, nullable = false)
     private String estadoCita;
 
-    @Column(name = "fecha", nullable = false)
+    @Column(name = "fechaCita", nullable = false)
     private LocalDateTime fechaCita;
 
-    @Column(name = "motivo", length = 1000, nullable = false)
+    @Column(name = "motivoCita", length = 50, nullable = false)
     private String motivoCita;
 
-    @Column(name = "video", length = 1000)
+    @Column(name = "videoCita", length = 50,nullable = false)
     private String videoCita;
 
-    @Column(name = "favorito")
+    @Column(name = "favoritoCita")
     private boolean favoritoCita;
 
     @ManyToOne
-    @JoinColumn(name = "id_Usuario", nullable = false)
+    @JoinColumn(name = "idUsuario")
     private Usuarios usuarios;
 
     public Citas() {

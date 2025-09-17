@@ -13,16 +13,16 @@ public class Reporte {
     private int idReporte;
 
     @ManyToOne
-    @JoinColumn(name = "id_Tratamiento", nullable = false)
+    @JoinColumn(name = "idTratamiento")
     private Tratamientos tratamiento;
 
-    @Column(name = "fecha",nullable = false)
+    @Column(name = "fechaReporte",nullable = false)
     private LocalDateTime fechaReporte;
 
-    @Column(name = "detalle", length = 1000,nullable = false)
+    @Column(name = "detalleReporte", length = 50,nullable = false)
     private String detalleReporte;
 
-    @Column(name = "progreso")
+    @Column(name = "progresoReporte", nullable = false)
     private int progresoReporte;
 
     public Reporte() {
