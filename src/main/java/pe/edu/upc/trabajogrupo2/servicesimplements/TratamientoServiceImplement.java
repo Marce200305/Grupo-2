@@ -1,6 +1,7 @@
 package pe.edu.upc.trabajogrupo2.servicesimplements;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pe.edu.upc.trabajogrupo2.entities.Tratamientos;
 import pe.edu.upc.trabajogrupo2.repositories.ITratamientosRepository;
 import pe.edu.upc.trabajogrupo2.repositories.IVideoconferenciasRepository;
@@ -8,6 +9,7 @@ import pe.edu.upc.trabajogrupo2.servicesinterfaces.ITratamientosService;
 
 import java.util.List;
 
+@Service
 public class TratamientoServiceImplement implements ITratamientosService {
     @Autowired
     private ITratamientosRepository dR;
