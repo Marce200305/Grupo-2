@@ -1,46 +1,14 @@
-package pe.edu.upc.trabajogrupo2.entities;
+package pe.edu.upc.trabajogrupo2.dtos;
 
-import jakarta.persistence.*;
+import pe.edu.upc.trabajogrupo2.entities.Citas;
 
-@Entity
-@Table(name = "Videoconferencias")
-public class Videoconferencias {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class VideoconferenciaDTOInsert {
     private int idVideoconferencia;
-
-    @ManyToOne
-    @JoinColumn(name = "idCita")
     private Citas citas;
-
-    @Column(name = "proveedorVideoconferencia", length = 50, nullable = false)
     private String proveedorVideoconferencia;
-
-    @Column(name = "join_urlVideoconferencia", columnDefinition = "TEXT",nullable = false)
     private String joinUrlVideoconferencia;
-
-    @Column(name = "star_urlVideoconferencia", columnDefinition = "TEXT",nullable = false)
     private String starUrlVideoconferencia;
-
-    @Column(name = "pass_apiVideoconferencia", columnDefinition = "JSONB",nullable = false)
     private String passApiVideoconferencia;
-
-
-    public Videoconferencias() {
-    }
-
-    public Videoconferencias(int idVideoconferencia, Citas citas, String proveedorVideoconferencia,
-                             String joinUrlVideoconferencia, String starUrlVideoconferencia,
-                             String passApiVideoconferencia) {
-        this.idVideoconferencia = idVideoconferencia;
-        this.citas = citas;
-        this.proveedorVideoconferencia = proveedorVideoconferencia;
-        this.joinUrlVideoconferencia = joinUrlVideoconferencia;
-        this.starUrlVideoconferencia = starUrlVideoconferencia;
-        this.passApiVideoconferencia = passApiVideoconferencia;
-    }
-
 
     public int getIdVideoconferencia() {
         return idVideoconferencia;
