@@ -44,8 +44,6 @@ public class UsuariosController {
         ds.insert(d);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("Rol creado exitosamente"+d.getNameUsuario());
-
-
     }
     @PostMapping
     public ResponseEntity<String> insertarterapeuta(@RequestBody UsuarioTerapeutaDTOInsert dto)
@@ -55,7 +53,5 @@ public class UsuariosController {
         ds.insert(d);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("Rol creado exitosamente"+d.getNameUsuario());
-
-
     }
 }
