@@ -1,14 +1,15 @@
 package pe.edu.upc.trabajogrupo2.servicesimplements;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pe.edu.upc.trabajogrupo2.entities.Sesiones;
 import pe.edu.upc.trabajogrupo2.repositories.ISesionesRepository;
 import pe.edu.upc.trabajogrupo2.servicesinterfaces.ISesionesService;
 
 import java.util.List;
 
+@Service
 public class SesionesServiceImplement implements ISesionesService {
-
     @Autowired
     private ISesionesRepository dR;
     @Override
