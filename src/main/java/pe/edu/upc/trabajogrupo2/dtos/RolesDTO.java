@@ -2,7 +2,7 @@ package pe.edu.upc.trabajogrupo2.dtos;
 
 public class RolesDTO {
     private int idRol;
-    private String nameRol;
+    private String nameRole;
 
 
     public int getIdRol() {
@@ -13,14 +13,12 @@ public class RolesDTO {
         this.idRol = idRol;
     }
 
-    public String getNameRol() {
-        return nameRol;
+    public String getNameRole() {
+        return nameRole;
     }
 
-    public void setNameRol(String nameRol) {
-        this.nameRol = nameRol;
+    public void setNameRole(String nameRole) {
+        this.nameRole = nameRole;
     }
-
-
 }
 

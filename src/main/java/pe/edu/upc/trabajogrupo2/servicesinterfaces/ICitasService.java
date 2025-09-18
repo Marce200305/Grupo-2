@@ -10,5 +10,4 @@ public interface ICitasService {
     public void delete(int id);
     public void update(Citas citas);
     public Citas ListId(int id);
-    public List<Object[]> getPatientsConMasSesiones();
 }

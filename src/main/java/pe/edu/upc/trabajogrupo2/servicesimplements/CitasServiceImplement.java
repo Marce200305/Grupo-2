@@ -37,8 +37,6 @@ public class CitasServiceImplement implements ICitasService {
         return dR.findById(id).orElse(null);
     }
 
-    @Override
-    public List<Object[]> getPatientsConMasSesiones() {
-        return dR.getPatientsConMasSesiones();
-    }
+
+
 }
