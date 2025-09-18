@@ -1,5 +1,6 @@
 package pe.edu.upc.trabajogrupo2.controllers;
 
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,13 +28,13 @@ public class RolesController {
     }
 
     @PostMapping
-    public ResponseEntity<String> insertar(@RequestBody RolesDTO dto)
+    public ResponseEntity<String> insertar(@Valid @RequestBody RolesDTO dto)
     {
         ModelMapper m = new ModelMapper();
-        Roles d=m.map(dto,Roles.class);
-        dS.insert(d);
+        Roles rol=m.map(dto,Roles.class);
+        dS.insert(rol);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Rol creado exitosamente"+d.getNameRole());
+                .body("Rol creado exitosamente:" + rol.getNameRole());
     }
 
     @GetMapping("/{id}")

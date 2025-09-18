@@ -43,7 +43,7 @@ public class UsuariosController {
         Usuarios d=m.map(dto,Usuarios.class);
         ds.insert(d);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Rol creado exitosamente"+d.getNameUsuario());
+                .body("Usuario creado exitosamente: " + d.getNameUsuario());
     }
     @PostMapping("/terapeuta")
     public ResponseEntity<String> insertarterapeuta(@RequestBody UsuarioTerapeutaDTOInsert dto)
@@ -52,6 +52,6 @@ public class UsuariosController {
         Usuarios d=m.map(dto,Usuarios.class);
         ds.insert(d);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Rol creado exitosamente"+d.getNameUsuario());
+                .body("Usuario creado exitosamente: " + d.getNameUsuario());
     }
 }

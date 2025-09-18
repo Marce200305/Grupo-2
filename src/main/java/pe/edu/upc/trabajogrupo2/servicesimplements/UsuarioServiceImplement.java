@@ -37,4 +37,5 @@ public class UsuarioServiceImplement implements IUsuarioService {
     public Usuarios ListId(int id) {
         return dR.findById(id).orElse(null);
     }
+
 }
