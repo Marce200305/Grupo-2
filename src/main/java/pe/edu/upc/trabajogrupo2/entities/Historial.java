@@ -16,13 +16,13 @@ public class Historial {
     @JoinColumn(name = "idUsuario")
     private Usuarios usuarios;
 
-    @Column(name = "documentacionHistorial", columnDefinition = "BLOB",nullable = false)
-    private Blob documentacionHistorial;
+    @Column(name = "documentacionHistorial",length= 50,nullable = false)
+    private String documentacionHistorial;
 
     public Historial() {
     }
 
-    public Historial(int idHistorial, Usuarios usuarios, Blob documentacionHistorial) {
+    public Historial(int idHistorial, Usuarios usuarios, String documentacionHistorial) {
         this.idHistorial = idHistorial;
         this.usuarios = usuarios;
         this.documentacionHistorial = documentacionHistorial;
@@ -44,11 +44,11 @@ public class Historial {
         this.usuarios = usuarios;
     }
 
-    public Blob getDocumentacionHistorial() {
+    public String getDocumentacionHistorial() {
         return documentacionHistorial;
     }
 
-    public void setDocumentacionHistorial(Blob documentacionHistorial) {
+    public void setDocumentacionHistorial(String documentacionHistorial) {
         this.documentacionHistorial = documentacionHistorial;
     }
 }
