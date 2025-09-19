@@ -1,45 +1,16 @@
-package pe.edu.upc.trabajogrupo2.entities;
+package pe.edu.upc.trabajogrupo2.dtos;
 
-import jakarta.persistence.*;
+import pe.edu.upc.trabajogrupo2.entities.Citas;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "Pagos")
-public class Pagos {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PagoDTOInsert {
     private int idPago;
-
-    @ManyToOne
-    @JoinColumn(name = "id_Cita")
     private Citas citas;
-
-    @Column(name = "montoPagos", nullable = false)
     private double montoPago;
-
-    @Column(name = "passapiPagos", columnDefinition = "JSONB",nullable = false)
     private String passApiPago;
-
-    @Column(name = "fechaPagos", nullable = false)
     private LocalDateTime fechaPago;
-
-    @Column(name = "estadoPagos", length = 30, nullable = false)
     private String estadoPago;
-
-    public Pagos() {
-    }
-
-    public Pagos(int idPago, Citas citas, double montoPago, String passApiPago, LocalDateTime fechaPago, String estadoPago) {
-        this.idPago = idPago;
-        this.citas = citas;
-        this.montoPago = montoPago;
-        this.passApiPago = passApiPago;
-        this.fechaPago = fechaPago;
-        this.estadoPago = estadoPago;
-    }
 
     public int getIdPago() {
         return idPago;

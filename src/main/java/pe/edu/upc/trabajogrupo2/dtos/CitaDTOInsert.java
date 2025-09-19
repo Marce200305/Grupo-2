@@ -1,47 +1,17 @@
-package pe.edu.upc.trabajogrupo2.entities;
+package pe.edu.upc.trabajogrupo2.dtos;
 
-import jakarta.persistence.*;
+import pe.edu.upc.trabajogrupo2.entities.Usuarios;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "Citas")
-public class Citas {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CitaDTOInsert {
     private int idCita;
-
-    @Column(name = "estadoCita", length = 50, nullable = false)
     private String estadoCita;
-
-    @Column(name = "fechaCita", nullable = false)
     private LocalDateTime fechaCita;
-
-    @Column(name = "motivoCita", length = 50, nullable = false)
     private String motivoCita;
-
-    @Column(name = "videoCita", length = 50,nullable = false)
     private String videoCita;
-
-    @Column(name = "favoritoCita")
     private boolean favoritoCita;
-
-    @ManyToOne
-    @JoinColumn(name = "idUsuario")
     private Usuarios usuarios;
-
-    public Citas() {
-    }
-
-    public Citas(int idCita, String estadoCita, LocalDateTime fechaCita, String motivoCita, String videoCita, boolean favoritoCita, Usuarios usuarios) {
-        this.idCita = idCita;
-        this.estadoCita = estadoCita;
-        this.fechaCita = fechaCita;
-        this.motivoCita = motivoCita;
-        this.videoCita = videoCita;
-        this.favoritoCita = favoritoCita;
-        this.usuarios = usuarios;
-    }
 
     public int getIdCita() {
         return idCita;

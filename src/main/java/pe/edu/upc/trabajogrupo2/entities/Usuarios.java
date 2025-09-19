@@ -26,16 +26,16 @@ public class Usuarios {
     @Column(name ="DNIUsuario", length = 50,nullable = false)
     private int DNIUsuario;
 
-    @Column(name ="contraseñaUsuario", length = 50,nullable = false)
+    @Column(name ="contrasenaUsuario", length = 50,nullable = false)
     private String contrasenaUsuario;
 
-    @Column(name ="especialidadeUsuario", length = 50,nullable = false)
+    @Column(name ="especialidadUsuario", length = 50,nullable = true)
     private String especialidadUsuario;
 
-    @Column(name ="numerocolegiaturaUsuario", length = 50,nullable = false)
+    @Column(name ="numerocolegiaturaUsuario", length = 50,nullable = true)
     private int numerocolegiaturaUsuario;
 
-    @Column(name ="apoderadoUsuario", length = 50,nullable = false)
+    @Column(name ="apoderadoUsuario", length = 50,nullable = true)
     private String apoderadoUsuario;
 
     @ManyToOne

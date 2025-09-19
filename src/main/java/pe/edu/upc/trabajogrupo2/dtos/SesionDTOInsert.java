@@ -1,39 +1,15 @@
-package pe.edu.upc.trabajogrupo2.entities;
+package pe.edu.upc.trabajogrupo2.dtos;
 
-import jakarta.persistence.*;
+import pe.edu.upc.trabajogrupo2.entities.Citas;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "Sesiones")
-public class Sesiones {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class SesionDTOInsert {
     private int idSesion;
-
-    @ManyToOne
-    @JoinColumn(name = "idCita")
     private Citas citas;
-
-    @Column(name = "numeroSesion", length = 50, nullable = false)
     private String numeroSesion;
-
-    @Column(name = "fechainicioSesion", nullable = false)
     private LocalDateTime fechaInicioSesion;
-
-    @Column(name = "fechafinSesion", nullable = false)
     private LocalDateTime fechaFinSesion;
-
-    public Sesiones() {
-    }
-
-    public Sesiones(int idSesion, Citas citas, String numeroSesion, LocalDateTime fechaInicioSesion, LocalDateTime fechaFinSesion) {
-        this.idSesion = idSesion;
-        this.citas = citas;
-        this.numeroSesion = numeroSesion;
-        this.fechaInicioSesion = fechaInicioSesion;
-        this.fechaFinSesion = fechaFinSesion;
-    }
 
     public int getIdSesion() {
         return idSesion;

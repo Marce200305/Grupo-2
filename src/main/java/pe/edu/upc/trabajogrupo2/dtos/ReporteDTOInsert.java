@@ -1,41 +1,15 @@
-package pe.edu.upc.trabajogrupo2.entities;
+package pe.edu.upc.trabajogrupo2.dtos;
 
-import jakarta.persistence.*;
+import pe.edu.upc.trabajogrupo2.entities.Tratamientos;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "Reporte")
-public class Reporte {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ReporteDTOInsert {
     private int idReporte;
-
-    @ManyToOne
-    @JoinColumn(name = "idTratamiento")
     private Tratamientos tratamiento;
-
-    @Column(name = "fechaReporte",nullable = false)
     private LocalDateTime fechaReporte;
-
-    @Column(name = "detalleReporte", length = 50,nullable = false)
     private String detalleReporte;
-
-    @Column(name = "progresoReporte", nullable = false)
     private int progresoReporte;
-
-    public Reporte() {
-    }
-
-    public Reporte(int idReporte, Tratamientos tratamiento, LocalDateTime fechaReporte,
-                   String detalleReporte, int progresoReporte) {
-        this.idReporte = idReporte;
-        this.tratamiento = tratamiento;
-        this.fechaReporte = fechaReporte;
-        this.detalleReporte = detalleReporte;
-        this.progresoReporte = progresoReporte;
-    }
 
     public int getIdReporte() {
         return idReporte;

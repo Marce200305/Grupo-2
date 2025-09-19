@@ -1,55 +1,18 @@
-package pe.edu.upc.trabajogrupo2.entities;
+package pe.edu.upc.trabajogrupo2.dtos;
 
-import jakarta.persistence.*;
+import pe.edu.upc.trabajogrupo2.entities.Historial;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "Tratamientos")
-public class Tratamientos {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TratamientoDTOInsert {
     private int idTratamiento;
-
-    @ManyToOne
-    @JoinColumn(name = "idHistorial")
     private Historial historial;
-
-    @Column(name = "objetivoTratamientos", length = 50, nullable = false)
     private String objetivoTratamiento;
-
-    @Column(name = "planTratamientos", length = 50, nullable = false)
     private String planTratamiento;
-
-    @Column(name = "fechainicioTratammientos", nullable = false)
     private LocalDateTime fechaInicioTratamiento;
-
-    @Column(name = "fechafinTratamientos", nullable = false)
     private LocalDateTime fechaFinTratamiento;
-
-    @Column(name = "terapeutaTratamientos", length = 50, nullable = false)
     private String terapeutaTratamiento;
-
-    @Column(name = "progresoTratamientos",nullable = false)
     private int progresoTratamiento;
-
-    public Tratamientos() {
-    }
-
-    public Tratamientos(int idTratamiento, Historial historial, String objetivoTratamiento,
-                        String planTratamiento, LocalDateTime fechaInicioTratamiento,
-                        LocalDateTime fechaFinTratamiento, String terapeutaTratamiento,
-                        int progresoTratamiento) {
-        this.idTratamiento = idTratamiento;
-        this.historial = historial;
-        this.objetivoTratamiento = objetivoTratamiento;
-        this.planTratamiento = planTratamiento;
-        this.fechaInicioTratamiento = fechaInicioTratamiento;
-        this.fechaFinTratamiento = fechaFinTratamiento;
-        this.terapeutaTratamiento = terapeutaTratamiento;
-        this.progresoTratamiento = progresoTratamiento;
-    }
 
     public int getIdTratamiento() {
         return idTratamiento;

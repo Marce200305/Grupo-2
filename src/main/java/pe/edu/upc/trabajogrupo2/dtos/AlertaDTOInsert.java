@@ -1,38 +1,13 @@
-package pe.edu.upc.trabajogrupo2.entities;
+package pe.edu.upc.trabajogrupo2.dtos;
 
-import jakarta.persistence.*;
+import pe.edu.upc.trabajogrupo2.entities.Citas;
 
-@Entity
-@Table(name = "Alertas")
-public class Alertas {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class AlertaDTOInsert {
     private int idAlerta;
-
-    @ManyToOne
-    @JoinColumn(name = "idCita")
     private Citas citas;
-
-    @Column(name = "canalAlerta", length = 50, nullable = false)
     private String canalAlerta;
-
-    @Column(name = "tituloAlerta", length = 50, nullable = false)
     private String tituloAlerta;
-
-    @Column(name = "mensajeAlerta", length = 50, nullable = false)
     private String mensajeAlerta;
-
-    public Alertas() {
-    }
-
-    public Alertas(int idAlerta, Citas citas, String canalAlerta, String tituloAlerta, String mensajeAlerta) {
-        this.idAlerta = idAlerta;
-        this.citas = citas;
-        this.canalAlerta = canalAlerta;
-        this.tituloAlerta = tituloAlerta;
-        this.mensajeAlerta = mensajeAlerta;
-    }
 
     public int getIdAlerta() {
         return idAlerta;

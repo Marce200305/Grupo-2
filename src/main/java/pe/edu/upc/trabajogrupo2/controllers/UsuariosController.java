@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class UsuariosController {
     @Autowired
     private IUsuarioService ds;
-    @GetMapping
+    @GetMapping("/usuario")
     public List<UsuarioDTOList> Listarusuario(){
         return ds.List().stream().map(y->{
             ModelMapper m= new ModelMapper();
@@ -27,7 +27,7 @@ public class UsuariosController {
         }).collect(Collectors.toList());
 
     }
-    @GetMapping
+    @GetMapping("/terapeuta")
     public List<UsuarioTerapeutaDTOList> Listarterapeuta(){
         return ds.List().stream().map(y->{
             ModelMapper m= new ModelMapper();
@@ -36,26 +36,22 @@ public class UsuariosController {
 
     }
 
-    @PostMapping
+    @PostMapping("/usuario")
     public ResponseEntity<String> insertarusuario(@RequestBody UsuarioDTOInsert dto)
     {
         ModelMapper m = new ModelMapper();
         Usuarios d=m.map(dto,Usuarios.class);
         ds.insert(d);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Rol creado exitosamente"+d.getNameUsuario());
-
-
+                .body("Usuario creado exitosamente: " + d.getNameUsuario());
     }
-    @PostMapping
+    @PostMapping("/terapeuta")
     public ResponseEntity<String> insertarterapeuta(@RequestBody UsuarioTerapeutaDTOInsert dto)
     {
         ModelMapper m = new ModelMapper();
         Usuarios d=m.map(dto,Usuarios.class);
         ds.insert(d);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Rol creado exitosamente"+d.getNameUsuario());
-
-
+                .body("Usuario creado exitosamente: " + d.getNameUsuario());
     }
 }
