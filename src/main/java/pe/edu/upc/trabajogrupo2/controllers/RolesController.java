@@ -66,7 +66,7 @@ public class RolesController {
         ModelMapper m = new ModelMapper();
         Roles rol = m.map(dto, Roles.class);
 
-        Roles existente = dS.ListId(rol.getIdRol());
+        Roles existente = dS.ListId(Math.toIntExact(rol.getIdRol()));
         if (existente == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("No se puede modificar. No existe un registro con el ID: " + rol.getIdRol());
