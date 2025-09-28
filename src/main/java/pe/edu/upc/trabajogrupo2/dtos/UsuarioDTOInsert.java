@@ -13,7 +13,34 @@ public class UsuarioDTOInsert {
     private int DNIUsuario;
     private String contrasenaUsuario;
     private String apoderadoUsuario;
+    private Boolean enabled;
+    private String password;
+    private String username;
     private Roles roles;
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public int getIdUsuario() {
         return idUsuario;
