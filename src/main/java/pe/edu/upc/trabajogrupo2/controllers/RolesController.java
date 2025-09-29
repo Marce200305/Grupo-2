@@ -66,12 +66,12 @@ public class RolesController {
         ModelMapper m = new ModelMapper();
         Roles rol = m.map(dto, Roles.class);
 
-        Roles existente = dS.ListId(rol.getIdRole());
+        Roles existente = dS.ListId(Math.toIntExact(rol.getIdRol()));
         if (existente == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("No se puede modificar. No existe un registro con el ID: " + rol.getIdRole());
+                    .body("No se puede modificar. No existe un registro con el ID: " + rol.getIdRol());
         }
         dS.update(rol);
-        return ResponseEntity.ok("Registro con ID " + rol.getIdRole() + " modificado correctamente.");
+        return ResponseEntity.ok("Registro con ID " + rol.getIdRol() + " modificado correctamente.");
     }
 }

@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public class UsuarioTerapeutaDTOInsert {
 
-    private int idUsuario;
+    private Long idUsuario;
     private String nameUsuario;
     private String apellidoUsuario;
     private String especialidadUsuario;
@@ -25,11 +25,11 @@ public class UsuarioTerapeutaDTOInsert {
         this.roles = roles;
     }
 
-    public int getIdUsuario() {
+    public Long getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(int idUsuario) {
+    public void setIdUsuario(Long idUsuario) {
         this.idUsuario = idUsuario;
     }
 
