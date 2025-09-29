@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.trabajogrupo2.dtos.DiagnosticoDTOList;
 import pe.edu.upc.trabajogrupo2.dtos.VideoconferenciaDTOInsert;
 import pe.edu.upc.trabajogrupo2.dtos.VideoconferenciaDTOList;
+import pe.edu.upc.trabajogrupo2.entities.Diagnosticos;
 import pe.edu.upc.trabajogrupo2.entities.Videoconferencias;
 import pe.edu.upc.trabajogrupo2.servicesinterfaces.IVideoconferenciasService;
 
@@ -74,5 +76,19 @@ public class VideoconferenciaController {
         vcS.update(vc);
         return ResponseEntity.ok("Videoconferencia en "
                 +vc.getProveedorVideoconferencia()+" modificada");
+    }
+    @GetMapping("/proveedor")
+    public ResponseEntity<?>buscarproveedor(@RequestParam String proveedorVideoconferencia){
+        List<Videoconferencias> videoconferencias = vcS.bucarporproveedor(proveedorVideoconferencia);
+
+        if(videoconferencias.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).
+                    body("No se encontraron reservas con la fecha de buscada:"+proveedorVideoconferencia);
+        }
+        List<VideoconferenciaDTOList> listaDTO = videoconferencias.stream().map(x->{
+            ModelMapper m = new ModelMapper();
+            return m.map(x,VideoconferenciaDTOList.class);
+        }).collect(Collectors.toList());
+        return ResponseEntity.ok(listaDTO);
     }
 }

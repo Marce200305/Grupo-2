@@ -37,4 +37,9 @@ public class VideoconferenciaServiceImplement implements IVideoconferenciasServi
     public Videoconferencias ListId(int id) {
         return dR.findById(id).orElse(null);
     }
+
+    @Override
+    public List<Videoconferencias> bucarporproveedor(String proveedorVideoconferencia) {
+        return dR.findByProveedor(proveedorVideoconferencia);
+    }
 }

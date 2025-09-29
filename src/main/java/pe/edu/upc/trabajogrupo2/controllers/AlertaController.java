@@ -7,7 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.trabajogrupo2.dtos.AlertaDTOInsert;
 import pe.edu.upc.trabajogrupo2.dtos.AlertaDTOList;
+import pe.edu.upc.trabajogrupo2.dtos.DiagnosticoDTOList;
 import pe.edu.upc.trabajogrupo2.entities.Alertas;
+import pe.edu.upc.trabajogrupo2.entities.Diagnosticos;
 import pe.edu.upc.trabajogrupo2.servicesinterfaces.IAlertaService;
 
 import java.util.List;
@@ -73,5 +75,19 @@ public class AlertaController {
         }
         alertaService.update(a);
         return ResponseEntity.ok("Alerta "+a.getTituloAlerta()+" modificado");
+    }
+    @GetMapping("/canales")
+    public ResponseEntity<?>buscarcanal(@RequestParam String canalAlerta){
+        List<Alertas> alertas = alertaService.buscarporcanal(canalAlerta);
+
+        if(alertas.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).
+                    body("No se encontraron reservas con la fecha de buscada:"+canalAlerta);
+        }
+        List<AlertaDTOList> listaDTO = alertas.stream().map(x->{
+            ModelMapper m = new ModelMapper();
+            return m.map(x,AlertaDTOList.class);
+        }).collect(Collectors.toList());
+        return ResponseEntity.ok(listaDTO);
     }
 }

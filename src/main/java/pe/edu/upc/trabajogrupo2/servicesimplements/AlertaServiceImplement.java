@@ -37,4 +37,9 @@ public class AlertaServiceImplement implements IAlertaService {
     public Alertas ListId(int id) {
         return dR.findById(id).orElse(null);
     }
+
+    @Override
+    public List<Alertas> buscarporcanal(String canalAlerta) {
+        return dR.findByCanal(canalAlerta);
+    }
 }

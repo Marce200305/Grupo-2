@@ -36,4 +36,9 @@ public class HistorialServiceImplement implements IHistorialService {
     public Historial ListId(int id) {
         return dR.findById(id).orElse(null);
     }
+
+    @Override
+    public List<String> findDocumentacionByUsuarioId(Integer idUsuario) {
+        return dR.findDocumentacionByUsuarioId(idUsuario);
+    }
 }

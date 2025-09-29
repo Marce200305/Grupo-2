@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.trabajogrupo2.dtos.PagoDTOInsert;
 import pe.edu.upc.trabajogrupo2.dtos.PagoDTOList;
+import pe.edu.upc.trabajogrupo2.dtos.QueryPagosDTO;
 import pe.edu.upc.trabajogrupo2.entities.Pagos;
 import pe.edu.upc.trabajogrupo2.servicesinterfaces.IPagosService;
 
@@ -73,5 +74,17 @@ public class PagoController {
         }
         pS.update(p);
         return ResponseEntity.ok("Pago "+p.getFechaPago()+" modificado");
+    }
+    @GetMapping("/montos")
+    public ResponseEntity<?> montototal() {
+        Double total = pS.Sumadepagos();
+
+        if (total==0 ) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No hay registros" );
+        }
+        QueryPagosDTO dto = new QueryPagosDTO();
+        dto.setMontoPago(total.doubleValue());
+        return ResponseEntity.ok(dto);
     }
 }
