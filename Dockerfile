@@ -19,4 +19,7 @@ EXPOSE 8080
 
 COPY --from=build /app/target/*.jar app.jar
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar", \
+            "--spring.datasource.url=jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}", \
+            "--spring.datasource.username=${PGUSERNAME}", \
+            "--spring.datasource.password=${PGPASSWORD}"]
