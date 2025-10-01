@@ -12,10 +12,9 @@ RUN ./mvnw clean package -DskipTests
 
 
 
-FROM amazoncorretto:17-alpine-jre
+FROM amazoncorretto:17-alpine-jdk
 
 WORKDIR /app
-
 EXPOSE 8080
 
 COPY --from=build /app/target/*.jar app.jar
