@@ -11,8 +11,8 @@ RUN chmod +x mvnw
 RUN ./mvnw clean package -DskipTests
 
 
-FROM amazoncorretto:17-jre-alpine
 
+amazoncorretto:17-alpine-jre
 WORKDIR /app
 
 EXPOSE 8080
