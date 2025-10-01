@@ -51,7 +51,6 @@ public class Usuarios implements Serializable {
 
     public Usuarios() {}
 
-    // Constructor actualizado
     public Usuarios(int idUsuario, String nameUsuario, String apellidoUsuario, LocalDate fechaNacimiento, String gmailUsuario, int DNIUsuario, String contrasenaUsuario, String especialidadUsuario, int numerocolegiaturaUsuario, String apoderadoUsuario, List<Roles> roles) {
         this.idUsuario = idUsuario;
         this.nameUsuario = nameUsuario;
@@ -66,7 +65,6 @@ public class Usuarios implements Serializable {
         this.roles = roles;
     }
 
-    // Métodos getters y setters
     public int getIdUsuario() { return idUsuario; }
     public void setIdUsuario(int idUsuario) { this.idUsuario = idUsuario; }
     public String getNameUsuario() { return nameUsuario; }
@@ -86,7 +84,7 @@ public class Usuarios implements Serializable {
     public String getApoderadoUsuario() { return apoderadoUsuario; }
     public void setApoderadoUsuario(String apoderadoUsuario) { this.apoderadoUsuario = apoderadoUsuario; }
 
-    // Métodos de Spring Security
+
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
     public String getPassword() { return password; }
