@@ -7,9 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.trabajogrupo2.dtos.DiagnosticoDTOInsert;
 import pe.edu.upc.trabajogrupo2.dtos.DiagnosticoDTOList;
+import pe.edu.upc.trabajogrupo2.dtos.UsuarioDTOList;
+import pe.edu.upc.trabajogrupo2.entities.Citas;
 import pe.edu.upc.trabajogrupo2.entities.Diagnosticos;
 import pe.edu.upc.trabajogrupo2.servicesinterfaces.IDiagnosticosService;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,5 +76,19 @@ public class DiagnosticoController {
         }
         dS.update(d);
         return ResponseEntity.ok("Diagnostico "+d.getSeveridadDiagnostico()+" modificado");
+    }
+    @GetMapping("/severidad")
+    public ResponseEntity<?>buscarseveridad(@RequestParam String severidadDiagnostico){
+        List<Diagnosticos> diagnosticos = dS.bucarporeveridad(severidadDiagnostico);
+
+        if(diagnosticos.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).
+                    body("No se encontraron reservas con la fecha de buscada:"+severidadDiagnostico);
+        }
+        List<DiagnosticoDTOList> listaDTO = diagnosticos.stream().map(x->{
+            ModelMapper m = new ModelMapper();
+            return m.map(x,DiagnosticoDTOList.class);
+        }).collect(Collectors.toList());
+        return ResponseEntity.ok(listaDTO);
     }
 }

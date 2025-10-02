@@ -28,19 +28,24 @@ public class Citas {
 
     @ManyToOne
     @JoinColumn(name = "idUsuario")
-    private Usuarios usuarios;
+    private Usuarios usuarioPrincipal;
+
+    @ManyToOne
+    @JoinColumn(name = "idUsuarioSeleccionado",nullable = false)
+    private Usuarios usuarioSeleccionado;
 
     public Citas() {
     }
 
-    public Citas(int idCita, String estadoCita, LocalDateTime fechaCita, String motivoCita, String videoCita, boolean favoritoCita, Usuarios usuarios) {
+    public Citas(int idCita, String estadoCita, LocalDateTime fechaCita, String motivoCita, String videoCita, boolean favoritoCita, Usuarios usuarioPrincipal, Usuarios usuarioSeleccionado) {
         this.idCita = idCita;
         this.estadoCita = estadoCita;
         this.fechaCita = fechaCita;
         this.motivoCita = motivoCita;
         this.videoCita = videoCita;
         this.favoritoCita = favoritoCita;
-        this.usuarios = usuarios;
+        this.usuarioPrincipal = usuarioPrincipal;
+        this.usuarioSeleccionado = usuarioSeleccionado;
     }
 
     public int getIdCita() {
@@ -91,11 +96,19 @@ public class Citas {
         this.favoritoCita = favoritoCita;
     }
 
-    public Usuarios getUsuarios() {
-        return usuarios;
+    public Usuarios getUsuarioPrincipal() {
+        return usuarioPrincipal;
     }
 
-    public void setUsuarios(Usuarios usuarios) {
-        this.usuarios = usuarios;
+    public void setUsuarioPrincipal(Usuarios usuarioPrincipal) {
+        this.usuarioPrincipal = usuarioPrincipal;
+    }
+
+    public Usuarios getUsuarioSeleccionado() {
+        return usuarioSeleccionado;
+    }
+
+    public void setUsuarioSeleccionado(Usuarios usuarioSeleccionado) {
+        this.usuarioSeleccionado = usuarioSeleccionado;
     }
 }

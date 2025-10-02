@@ -1,6 +1,7 @@
 package pe.edu.upc.trabajogrupo2.servicesimplements;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pe.edu.upc.trabajogrupo2.entities.Usuarios;
 import pe.edu.upc.trabajogrupo2.repositories.IUsuarioRepository;
@@ -13,6 +14,9 @@ public class UsuarioServiceImplement implements IUsuarioService {
     @Autowired
     private IUsuarioRepository dR;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public List<Usuarios> List() {
         return dR.findAll();
@@ -20,6 +24,9 @@ public class UsuarioServiceImplement implements IUsuarioService {
 
     @Override
     public void insert(Usuarios usuarios) {
+        String encodedPassword = passwordEncoder.encode(usuarios.getPassword());
+        usuarios.setPassword(encodedPassword);
+        usuarios.setEnabled(true);
         dR.save(usuarios);
     }
 
@@ -30,6 +37,12 @@ public class UsuarioServiceImplement implements IUsuarioService {
 
     @Override
     public void update(Usuarios usuarios) {
+        Usuarios existingUser = dR.findById(usuarios.getIdUsuario()).orElse(null);
+
+        if (existingUser != null && !usuarios.getPassword().equals(existingUser.getPassword())) {
+            String encodedPassword = passwordEncoder.encode(usuarios.getPassword());
+            usuarios.setPassword(encodedPassword);
+        }
         dR.save(usuarios);
     }
 

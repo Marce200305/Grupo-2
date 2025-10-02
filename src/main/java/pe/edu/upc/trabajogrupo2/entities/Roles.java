@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "Roles", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "nameRole"})}) // <- CAMBIADO
+@Table(name = "Roles", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "nameRole"})})
 public class Roles implements Serializable {
 
     @Id
@@ -20,12 +20,12 @@ public class Roles implements Serializable {
 
     public Roles() {}
 
-    public Roles(int idRol, String nameRole) {
+    public Roles(int idRol, String nameRole, Usuarios user) {
         this.idRol = idRol;
         this.nameRole = nameRole;
+        this.user = user;
     }
 
-    // Métodos getters y setters
     public int getIdRol() { return idRol; }
     public void setIdRol(int idRol) { this.idRol = idRol; }
     public String getNameRole() { return nameRole; }

@@ -36,4 +36,9 @@ public class PagosServiceImplement implements IPagosService {
     public Pagos ListId(int id) {
         return dR.findById(id).orElse(null);
     }
+
+    @Override
+    public Double Sumadepagos() {
+        return dR.Sumadepagos();
+    }
 }

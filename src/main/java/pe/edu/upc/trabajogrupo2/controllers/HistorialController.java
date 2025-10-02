@@ -7,7 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.trabajogrupo2.dtos.HistorialDTOInsert;
 import pe.edu.upc.trabajogrupo2.dtos.HistorialDTOList;
+import pe.edu.upc.trabajogrupo2.dtos.VideoconferenciaDTOList;
 import pe.edu.upc.trabajogrupo2.entities.Historial;
+import pe.edu.upc.trabajogrupo2.entities.Videoconferencias;
 import pe.edu.upc.trabajogrupo2.servicesinterfaces.IHistorialService;
 
 import java.util.List;
@@ -73,5 +75,19 @@ public class HistorialController {
         }
         hS.update(h);
         return ResponseEntity.ok("Historial "+h.getDocumentacionHistorial()+" modificado");
+    }
+    @GetMapping("/queryhistorial")
+    public ResponseEntity<?>buscarhistorial(@RequestParam Integer idUsuario){
+        List<String> historial = hS.findDocumentacionByUsuarioId(idUsuario);
+
+        if(historial.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).
+                    body("No se encontraron reservas con la fecha de buscada:"+idUsuario);
+        }
+        List<HistorialDTOList> listaDTO = historial.stream().map(x->{
+            ModelMapper m = new ModelMapper();
+            return m.map(x,HistorialDTOList.class);
+        }).collect(Collectors.toList());
+        return ResponseEntity.ok(listaDTO);
     }
 }

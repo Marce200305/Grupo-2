@@ -11,7 +11,9 @@ public class CitaDTOInsert {
     private String motivoCita;
     private String videoCita;
     private boolean favoritoCita;
-    private Usuarios usuarios;
+    private Usuarios usuarioPrincipal;
+    private Usuarios usuarioSeleccionado;
+
 
     public int getIdCita() {
         return idCita;
@@ -61,11 +63,19 @@ public class CitaDTOInsert {
         this.favoritoCita = favoritoCita;
     }
 
-    public Usuarios getUsuarios() {
-        return usuarios;
+    public Usuarios getUsuarioPrincipal() {
+        return usuarioPrincipal;
     }
 
-    public void setUsuarios(Usuarios usuarios) {
-        this.usuarios = usuarios;
+    public void setUsuarioPrincipal(Usuarios usuarioPrincipal) {
+        this.usuarioPrincipal = usuarioPrincipal;
+    }
+
+    public Usuarios getUsuarioSeleccionado() {
+        return usuarioSeleccionado;
+    }
+
+    public void setUsuarioSeleccionado(Usuarios usuarioSeleccionado) {
+        this.usuarioSeleccionado = usuarioSeleccionado;
     }
 }

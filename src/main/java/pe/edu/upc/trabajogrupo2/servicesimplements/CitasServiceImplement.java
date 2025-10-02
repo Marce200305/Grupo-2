@@ -6,6 +6,7 @@ import pe.edu.upc.trabajogrupo2.entities.Citas;
 import pe.edu.upc.trabajogrupo2.repositories.ICitasRepository;
 import pe.edu.upc.trabajogrupo2.servicesinterfaces.ICitasService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -37,6 +38,15 @@ public class CitasServiceImplement implements ICitasService {
         return dR.findById(id).orElse(null);
     }
 
+    @Override
+    public List<Citas> buscarcita(LocalDate fechaCita) {
+        return dR.buscarcita(fechaCita);
+    }
+
+    @Override
+    public Double contarporestado(String estadoCita) {
+        return dR.countByEstado(estadoCita);
+    }
 
 
 }
