@@ -43,6 +43,16 @@ public class PagosServiceImplement implements IPagosService {
     public Double RecaudacionPorFechas(LocalDateTime fecha1, LocalDateTime fecha2) {
         return dR.RecaudacionPorFechas(fecha1, fecha2);
     }
+
+    @Override
+    public Double PromedioDePagoPorFechas(LocalDateTime fecha1, LocalDateTime fecha2) {
+        return dR.PromedioPagosPorFechas(fecha1, fecha2);
+    }
+
+    @Override
+    public List<Object[]> RecaudacionXmes() {
+        return dR.RecaudacionXmes();
+    }
 //
 //    @Override
 //    public Double Sumadepagos() {

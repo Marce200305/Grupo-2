@@ -42,4 +42,11 @@ public class DiagnosticosServiceImplement implements IDiagnosticosService {
     public List<Diagnosticos> bucarporeveridad(String severidadDiagnostico) {
         return dR.findBySeveridad(severidadDiagnostico);
     }
+
+    @Override
+    public List<Object[]> contarPorServeridad() {
+        return dR.contarPorSeveridad();
+    }
+
+
 }
