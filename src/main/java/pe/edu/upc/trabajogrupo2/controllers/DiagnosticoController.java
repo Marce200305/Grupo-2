@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.trabajogrupo2.dtos.DiagnosticoContarPorSeveridadDTO;
 import pe.edu.upc.trabajogrupo2.dtos.DiagnosticoDTOInsert;
 import pe.edu.upc.trabajogrupo2.dtos.DiagnosticoDTOList;
 import pe.edu.upc.trabajogrupo2.dtos.UsuarioDTOList;
@@ -13,6 +14,7 @@ import pe.edu.upc.trabajogrupo2.entities.Diagnosticos;
 import pe.edu.upc.trabajogrupo2.servicesinterfaces.IDiagnosticosService;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -91,4 +93,21 @@ public class DiagnosticoController {
         }).collect(Collectors.toList());
         return ResponseEntity.ok(listaDTO);
     }
+
+    @GetMapping("/por-severidad")
+    public List<DiagnosticoContarPorSeveridadDTO> DiagnosticoContarPorSeveridadDTO() {
+        List<Object[]> lista = dS.contarPorServeridad();
+        List<DiagnosticoContarPorSeveridadDTO> listaDTO = new ArrayList<>();
+
+        for (Object[] obj : lista) {
+            DiagnosticoContarPorSeveridadDTO dto = new DiagnosticoContarPorSeveridadDTO();
+            dto.setSeveridad((String) obj[0]);
+            dto.setTotal(((Number) obj[1]).longValue());
+            listaDTO.add(dto);
+        }
+
+        return listaDTO;
+    }
+
+
 }
