@@ -5,14 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.trabajogrupo2.dtos.CitaDTOInsert;
-import pe.edu.upc.trabajogrupo2.dtos.CitaDTOList;
-import pe.edu.upc.trabajogrupo2.dtos.QueryPagosDTO;
-import pe.edu.upc.trabajogrupo2.dtos.UsuarioDTOList;
+import pe.edu.upc.trabajogrupo2.dtos.*;
 import pe.edu.upc.trabajogrupo2.entities.Citas;
 import pe.edu.upc.trabajogrupo2.servicesinterfaces.ICitasService;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -104,4 +102,36 @@ public class CitaController {
         dto.setEstadoCita(estadoCta);
         return ResponseEntity.ok(dto);
     }
+
+    @GetMapping("/por-mes")
+    public List<CitasPorMesDTO> citasPorMes() {
+        List<Object[]> lista = cS.CitasPorMes();
+        List<CitasPorMesDTO> listaDTO = new ArrayList<>();
+
+        for (Object[] obj : lista) {
+            CitasPorMesDTO dto = new CitasPorMesDTO();
+            dto.setMes(obj[0].toString().substring(0,7));
+            dto.setTotal(((Number) obj[1]).longValue());
+            listaDTO.add(dto);
+        }
+
+        return listaDTO;
+    }
+
+
+    @GetMapping("/por-usuario")
+    public List<CitaPorUsuarioDTO> citasPorUsuario() {
+        List<Object[]> lista = cS.CitasPorUsuario();
+        List<CitaPorUsuarioDTO> listaDTO = new ArrayList<>();
+
+        for (Object[] obj : lista) {
+            CitaPorUsuarioDTO dto = new CitaPorUsuarioDTO();
+            dto.setId((Integer) obj[0]);
+            dto.setTotalCitas(((Number) obj[1]).longValue());
+            listaDTO.add(dto);
+        }
+
+        return listaDTO;
+    }
+
 }

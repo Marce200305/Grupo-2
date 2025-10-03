@@ -2,15 +2,15 @@ package pe.edu.upc.trabajogrupo2.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.trabajogrupo2.dtos.PagoDTOInsert;
-import pe.edu.upc.trabajogrupo2.dtos.PagoDTOList;
-import pe.edu.upc.trabajogrupo2.dtos.QueryPagosDTO;
+import pe.edu.upc.trabajogrupo2.dtos.*;
 import pe.edu.upc.trabajogrupo2.entities.Pagos;
 import pe.edu.upc.trabajogrupo2.servicesinterfaces.IPagosService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +28,7 @@ public class PagoController {
         }).collect(Collectors.toList());
     }
 
-    @PostMapping
+    @PostMapping("Ipay")
     public ResponseEntity<String> insertarPago(@RequestBody PagoDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Pagos p = m.map(dto,Pagos.class);
@@ -75,16 +75,66 @@ public class PagoController {
         pS.update(p);
         return ResponseEntity.ok("Pago "+p.getFechaPago()+" modificado");
     }
-    @GetMapping("/montos")
-    public ResponseEntity<?> montototal() {
-        Double total = pS.Sumadepagos();
+//    @GetMapping("/montos")
+//    public ResponseEntity<?> montototal() {
+//        Double total = pS.Sumadepagos();
+//
+//        if (total==0 ) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+//                    .body("No hay registros" );
+//        }
+//        QueryPagosDTO dto = new QueryPagosDTO();
+//        dto.setMontoPago(total.doubleValue());
+//        return ResponseEntity.ok(dto);
+//    }
 
-        if (total==0 ) {
+    @GetMapping("/recaudacion/{fecha1}/{fecha2}")
+    public ResponseEntity<?> recaudacionPorFechas(
+            @PathVariable("fecha1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha1,
+            @PathVariable("fecha2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha2) {
+
+        Double total = pS.RecaudacionPorFechas(fecha1, fecha2);
+
+        if (total == null || total == 0) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("No hay registros" );
+                    .body("No hay pagos registrados en el rango de fechas indicado");
         }
-        QueryPagosDTO dto = new QueryPagosDTO();
-        dto.setMontoPago(total.doubleValue());
+
+        PagoSumaEntreFechasDTO dto = new PagoSumaEntreFechasDTO();
+        dto.setMontoRecaudado(total);
+
         return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/promedio/{fecha1}/{fecha2}")
+    public ResponseEntity<?> promedioPagosPorFechas(
+            @PathVariable("fecha1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha1,
+            @PathVariable("fecha2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha2) {
+
+        Double promedio = pS.PromedioDePagoPorFechas(fecha1, fecha2);
+
+        if (promedio == null || promedio == 0) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No hay pagos registrados en el rango de fechas indicado");
+        }
+
+        PagoPromedioDTO dto = new PagoPromedioDTO();
+        dto.setPromedioPagos(promedio);
+
+        return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/recaudacion-mensual")
+    public ResponseEntity<?> recaudacionMensual() {
+        List<Object[]> resultados = pS.RecaudacionXmes();
+
+        List<PagoRecaudacionXmesDTO> dtoList = resultados.stream().map(obj -> {
+            PagoRecaudacionXmesDTO dto = new PagoRecaudacionXmesDTO();
+            dto.setMes(((java.sql.Timestamp) obj[0]).toLocalDateTime().toLocalDate());
+            dto.setTotal(((Number) obj[1]).doubleValue());
+            return dto;
+        }).collect(Collectors.toList());
+
+        return ResponseEntity.ok(dtoList);
     }
 }

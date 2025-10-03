@@ -16,4 +16,18 @@ public interface ICitasRepository extends JpaRepository<Citas, Integer> {
 
     @Query("SELECT COUNT(c) FROM Citas c WHERE c.estadoCita = :estadoCita")
     public Double countByEstado(@Param("estadoCita") String estadoCita);
+
+    @Query(value = "SELECT DATE_TRUNC('month', c.fecha_cita) AS mes, COUNT(*) AS total " +
+            "FROM citas c " +
+            "GROUP BY DATE_TRUNC('month', c.fecha_cita) " +
+            "ORDER BY mes", nativeQuery = true)
+    List<Object[]> CitasPorMes();
+
+    @Query(value = "SELECT c.id_usuario, COUNT(*) AS total " +
+            "FROM citas c " +
+            "GROUP BY c.id_usuario " +
+            "ORDER BY total DESC", nativeQuery = true)
+    List<Object[]> CitasPorUsuario();
+
+
 }

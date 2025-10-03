@@ -48,5 +48,15 @@ public class CitasServiceImplement implements ICitasService {
         return dR.countByEstado(estadoCita);
     }
 
+    @Override
+    public List<Object[]> CitasPorMes() {
+        return dR.CitasPorMes();
+    }
+
+    @Override
+    public List<Object[]> CitasPorUsuario() {
+        return dR.CitasPorUsuario();
+    }
+
 
 }

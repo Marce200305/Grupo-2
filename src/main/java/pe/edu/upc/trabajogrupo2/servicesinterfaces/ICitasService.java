@@ -14,6 +14,7 @@ public interface ICitasService {
     public Citas ListId(int id);
     public List<Citas>buscarcita(LocalDate fechaCita);
     public Double contarporestado( String estadoCita);
-
+    public List<Object[]> CitasPorMes();
+    public List<Object[]> CitasPorUsuario();
 
 }
