@@ -42,5 +42,9 @@ public class TratamientoServiceImplement implements ITratamientosService {
     @Override
     public List<Object[]> rankingPacientes() {
         return dR.rankingPacientes();
+
+    public List<String[]> masTratamientosAsignados() {
+        return dR.masTratamientosAsignados();
+
     }
 }

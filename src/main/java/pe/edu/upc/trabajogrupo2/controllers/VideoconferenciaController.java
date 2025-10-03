@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.trabajogrupo2.dtos.DiagnosticoDTOList;
 import pe.edu.upc.trabajogrupo2.dtos.VideoconferenciaDTOInsert;
@@ -25,6 +26,7 @@ public class VideoconferenciaController {
     private IVideoconferenciasService vcS;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA','PACIENTE')")
     public List<VideoconferenciaDTOList> listarVideoconferencias() {
         return vcS.List().stream().map(vc->{
             ModelMapper m = new ModelMapper();
@@ -33,6 +35,7 @@ public class VideoconferenciaController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA','PACIENTE')")
     public ResponseEntity<String> insertarVideoconferencia(@RequestBody VideoconferenciaDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Videoconferencias vc = m.map(dto, Videoconferencias.class);
@@ -42,6 +45,7 @@ public class VideoconferenciaController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<?> listarVideoconferenciaPorId(@PathVariable("id") Integer id) {
         Videoconferencias vc = vcS.ListId(id);
         if (vc == null) {
@@ -55,6 +59,7 @@ public class VideoconferenciaController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA','PACIENTE')")
     public ResponseEntity<String> eliminarVideoconferencia(@PathVariable("id") Integer id) {
         Videoconferencias vc = vcS.ListId(id);
         if (vc == null) {
@@ -67,6 +72,7 @@ public class VideoconferenciaController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<String> modificarVideoconferencia(@RequestBody VideoconferenciaDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Videoconferencias vc = m.map(dto, Videoconferencias.class);
@@ -81,6 +87,7 @@ public class VideoconferenciaController {
                 +vc.getProveedorVideoconferencia()+" modificada");
     }
     @GetMapping("/proveedor")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<?>buscarproveedor(@RequestParam String proveedorVideoconferencia){
         List<Videoconferencias> videoconferencias = vcS.bucarporproveedor(proveedorVideoconferencia);
 

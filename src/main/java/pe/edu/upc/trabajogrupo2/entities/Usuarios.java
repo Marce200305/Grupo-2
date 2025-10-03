@@ -21,9 +21,9 @@ public class Usuarios implements Serializable {
 
     private Boolean enabled;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private List<Roles> roles;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "idRol")
+    private Roles roles;
 
     @Column(name = "nameUsuario", length = 50, nullable = false)
     private String nameUsuario;
@@ -51,18 +51,20 @@ public class Usuarios implements Serializable {
 
     public Usuarios() {}
 
-    public Usuarios(int idUsuario, String nameUsuario, String apellidoUsuario, LocalDate fechaNacimiento, String gmailUsuario, int DNIUsuario, String contrasenaUsuario, String especialidadUsuario, int numerocolegiaturaUsuario, String apoderadoUsuario, List<Roles> roles) {
+    public Usuarios(int idUsuario, String username, String password, Boolean enabled, Roles roles, String nameUsuario, String apellidoUsuario, LocalDate fechaNacimiento, String gmailUsuario, int DNIUsuario, String especialidadUsuario, int numerocolegiaturaUsuario, String apoderadoUsuario) {
         this.idUsuario = idUsuario;
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
+        this.roles = roles;
         this.nameUsuario = nameUsuario;
         this.apellidoUsuario = apellidoUsuario;
         this.fechaNacimiento = fechaNacimiento;
         this.gmailUsuario = gmailUsuario;
         this.DNIUsuario = DNIUsuario;
-        this.password = contrasenaUsuario;
         this.especialidadUsuario = especialidadUsuario;
         this.numerocolegiaturaUsuario = numerocolegiaturaUsuario;
         this.apoderadoUsuario = apoderadoUsuario;
-        this.roles = roles;
     }
 
     public int getIdUsuario() { return idUsuario; }
@@ -91,6 +93,11 @@ public class Usuarios implements Serializable {
     public void setPassword(String password) { this.password = password; }
     public Boolean getEnabled() { return enabled; }
     public void setEnabled(Boolean enabled) { this.enabled = enabled; }
-    public List<Roles> getRoles() { return roles; }
-    public void setRoles(List<Roles> roles) { this.roles = roles; }
+    public Roles getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Roles roles) {
+        this.roles = roles;
+    }
 }

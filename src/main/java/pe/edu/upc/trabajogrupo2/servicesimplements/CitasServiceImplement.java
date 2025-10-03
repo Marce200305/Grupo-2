@@ -59,8 +59,13 @@ public class CitasServiceImplement implements ICitasService {
     }
 
     @Override
+
     public List<Object[]> CitasPendientes() {
         return dR.citasPendientes();
+
+    public List<String[]> estadoCitasPendientes() {
+        return dR.estadoCitasPendientes();
+
     }
 
 

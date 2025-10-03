@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.trabajogrupo2.dtos.*;
 import pe.edu.upc.trabajogrupo2.entities.Roles;
@@ -12,6 +13,9 @@ import pe.edu.upc.trabajogrupo2.entities.Videoconferencias;
 import pe.edu.upc.trabajogrupo2.repositories.IUsuarioRepository;
 import pe.edu.upc.trabajogrupo2.servicesinterfaces.IUsuarioService;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +25,7 @@ public class UsuariosController {
     @Autowired
     private IUsuarioService ds;
     @GetMapping("/usuario")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public List<UsuarioDTOList> Listarusuario(){
         return ds.List().stream().map(y->{
             ModelMapper m= new ModelMapper();
@@ -29,6 +34,7 @@ public class UsuariosController {
 
     }
     @GetMapping("/terapeuta")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public List<UsuarioTerapeutaDTOList> Listarterapeuta(){
         return ds.List().stream().map(y->{
             ModelMapper m= new ModelMapper();
@@ -38,6 +44,7 @@ public class UsuariosController {
     }
 
     @PostMapping("/usuario")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<String> insertarusuario(@RequestBody UsuarioDTOInsert dto)
     {
         ModelMapper m = new ModelMapper();
@@ -47,6 +54,7 @@ public class UsuariosController {
                 .body("Usuario creado exitosamente: " + d.getNameUsuario());
     }
     @PostMapping("/terapeuta")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<String> insertarterapeuta(@RequestBody UsuarioTerapeutaDTOInsert dto)
     {
         ModelMapper m = new ModelMapper();
@@ -57,7 +65,7 @@ public class UsuariosController {
     }
 
     @GetMapping ("/{id}")
-
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<?> ListId(@PathVariable("id") Integer id) {
         Usuarios d= ds.ListId(id);
 
@@ -72,6 +80,7 @@ public class UsuariosController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<String> deletear(@PathVariable("id") Integer id) {
         Usuarios d = ds.ListId(id);
         if (d == null) {
@@ -84,6 +93,7 @@ public class UsuariosController {
     }
 
     @PutMapping("/usuario")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<String> updatear(@RequestBody UsuarioDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Usuarios d = m.map(dto, Usuarios.class);
@@ -99,6 +109,7 @@ public class UsuariosController {
     }
 
     @PutMapping("/terapeuta")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<String> updatearterapeuta(@RequestBody UsuarioTerapeutaDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Usuarios d = m.map(dto, Usuarios.class);
@@ -111,5 +122,40 @@ public class UsuariosController {
         ds.update(d);
         return ResponseEntity.ok("Usuario en "
                 +d.getNameUsuario()+" modificada");
+    }
+
+    @GetMapping("/mas-citas-agendadas")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ResponseEntity<?> TotalCitasDesc(){
+        List<TotalCitasUsuarioDTO> listaDTO = new ArrayList<>();
+        List<String[]> fila = ds.masCitasAgendadas();
+        for(String[] s:fila){
+            TotalCitasUsuarioDTO dto = new TotalCitasUsuarioDTO();
+            dto.setNameUsuario(s[0]);
+            dto.setApellidoUsuario(s[1]);
+            dto.setCantidadCitas(Integer.parseInt(s[2]));
+            listaDTO.add(dto);
+        }
+        return ResponseEntity.ok(listaDTO);
+    }
+
+    @GetMapping("/estado-progreso-usuario")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ResponseEntity<?> ProgresoDeUsuario(){
+        List<ReporteProgresoUsuarioDTO> listaDTO = new ArrayList<>();
+        List<String[]> fila = ds.ReporteProgresoPaciente();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+
+        for(String[] s:fila){
+            ReporteProgresoUsuarioDTO dto = new ReporteProgresoUsuarioDTO();
+            dto.setNameUsuario(s[0]);
+            dto.setApellidoUsuario(s[1]);
+            dto.setFechaReporte(LocalDateTime.parse(s[2], formatter));
+            dto.setDetalleReporte(s[3]);
+            dto.setProgresoReporte(Integer.parseInt(s[4]));
+            listaDTO.add(dto);
+        }
+        return ResponseEntity.ok(listaDTO);
     }
 }

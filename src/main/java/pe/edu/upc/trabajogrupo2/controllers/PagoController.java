@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.trabajogrupo2.dtos.*;
 import pe.edu.upc.trabajogrupo2.entities.Pagos;
@@ -22,6 +23,7 @@ public class PagoController {
     private IPagosService pS;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN','PACIENTE')")
     public List<PagoDTOList> listarPagos() {
         return pS.List().stream().map(p->{
             ModelMapper m = new ModelMapper();
@@ -30,6 +32,7 @@ public class PagoController {
     }
 
     @PostMapping("Ipay")
+    @PreAuthorize("hasAnyRole('PACIENTE')")
     public ResponseEntity<String> insertarPago(@RequestBody PagoDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Pagos p = m.map(dto,Pagos.class);
@@ -39,6 +42,7 @@ public class PagoController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','PACIENTE')")
     public ResponseEntity<?> listarPagoPorId(@PathVariable("id") Integer id) {
         Pagos p = pS.ListId(id);
         if (p == null) {
@@ -52,6 +56,7 @@ public class PagoController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','PACIENTE')")
     public ResponseEntity<String> eliminarPago(@PathVariable("id") Integer id) {
         Pagos p = pS.ListId(id);
         if (p == null) {
@@ -64,6 +69,8 @@ public class PagoController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyRole('ADMIN','PACIENTE')")
+
     public ResponseEntity<String> modificarPago(@RequestBody PagoDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Pagos p = m.map(dto,Pagos.class);
@@ -90,6 +97,7 @@ public class PagoController {
 //    }
 
     @GetMapping("/recaudacion/{fecha1}/{fecha2}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<?> recaudacionPorFechas(
             @PathVariable("fecha1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha1,
             @PathVariable("fecha2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha2) {
@@ -108,6 +116,7 @@ public class PagoController {
     }
 
     @GetMapping("/promedio/{fecha1}/{fecha2}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<?> promedioPagosPorFechas(
             @PathVariable("fecha1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha1,
             @PathVariable("fecha2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha2) {
@@ -126,6 +135,7 @@ public class PagoController {
     }
 
     @GetMapping("/recaudacion-mensual")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<?> recaudacionMensual() {
         List<Object[]> resultados = pS.RecaudacionXmes();
 

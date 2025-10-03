@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "Roles", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "nameRole"})})
+@Table(name = "Roles")
 public class Roles implements Serializable {
 
     @Id
@@ -14,22 +14,16 @@ public class Roles implements Serializable {
     @Column(name = "nameRole", length = 50, nullable = false)
     private String nameRole;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private Usuarios user;
 
     public Roles() {}
 
     public Roles(int idRol, String nameRole, Usuarios user) {
         this.idRol = idRol;
         this.nameRole = nameRole;
-        this.user = user;
     }
 
     public int getIdRol() { return idRol; }
     public void setIdRol(int idRol) { this.idRol = idRol; }
     public String getNameRole() { return nameRole; }
     public void setNameRole(String nameRole) { this.nameRole = nameRole; }
-    public Usuarios getUser() { return user; }
-    public void setUser(Usuarios user) { this.user = user; }
 }

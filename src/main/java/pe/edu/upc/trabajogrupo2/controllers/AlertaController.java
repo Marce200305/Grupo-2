@@ -4,13 +4,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.trabajogrupo2.dtos.AlertaDTOInsert;
 import pe.edu.upc.trabajogrupo2.dtos.AlertaDTOList;
+
 import pe.edu.upc.trabajogrupo2.dtos.AlertaPorCitaDTO;
 import pe.edu.upc.trabajogrupo2.dtos.DiagnosticoDTOList;
 import pe.edu.upc.trabajogrupo2.entities.Alertas;
-import pe.edu.upc.trabajogrupo2.entities.Diagnosticos;
 import pe.edu.upc.trabajogrupo2.servicesinterfaces.IAlertaService;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class AlertaController {
     private IAlertaService alertaService;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<AlertaDTOList> listarAlertas() {
         return alertaService.List().stream().map(a->{
             ModelMapper m = new ModelMapper();
@@ -32,6 +34,7 @@ public class AlertaController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA')")
     public ResponseEntity<String> insertarAlerta(@RequestBody AlertaDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Alertas a = m.map(dto,Alertas.class);
@@ -41,6 +44,7 @@ public class AlertaController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA')")
     public ResponseEntity<?> listarAlertaPorId(@PathVariable("id") Integer id) {
         Alertas a = alertaService.ListId(id);
         if (a == null) {
@@ -54,6 +58,7 @@ public class AlertaController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA')")
     public ResponseEntity<String> eliminarAlerta(@PathVariable("id") Integer id) {
         Alertas a = alertaService.ListId(id);
         if (a == null) {
@@ -66,6 +71,7 @@ public class AlertaController {
     }
 
     @PutMapping()
+    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA')")
     public ResponseEntity<String> modificarAlerta(@RequestBody AlertaDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Alertas a = m.map(dto,Alertas.class);
@@ -79,6 +85,7 @@ public class AlertaController {
         return ResponseEntity.ok("Alerta "+a.getTituloAlerta()+" modificado");
     }
     @GetMapping("/canales")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<?>buscarcanal(@RequestParam String canalAlerta){
         List<Alertas> alertas = alertaService.buscarporcanal(canalAlerta);
 

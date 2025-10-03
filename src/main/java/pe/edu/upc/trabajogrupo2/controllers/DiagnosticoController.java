@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.trabajogrupo2.dtos.DiagnosticoContarPorSeveridadDTO;
 import pe.edu.upc.trabajogrupo2.dtos.DiagnosticoDTOInsert;
@@ -25,6 +26,8 @@ public class DiagnosticoController {
     private IDiagnosticosService dS;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA','PACIENTE')")
+
     public List<DiagnosticoDTOList> listarDiagnosticos() {
         return dS.List().stream().map(a->{
             ModelMapper m = new ModelMapper();
@@ -33,6 +36,8 @@ public class DiagnosticoController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('TERAPEUTA')")
+
     public ResponseEntity<String> insertarDiagnostico(@RequestBody DiagnosticoDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Diagnosticos d = m.map(dto,Diagnosticos.class);
@@ -42,6 +47,8 @@ public class DiagnosticoController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA')")
+
     public ResponseEntity<?> listarDiagnosticoPorId(@PathVariable("id") Integer id) {
         Diagnosticos d = dS.ListId(id);
         if (d == null) {
@@ -55,6 +62,8 @@ public class DiagnosticoController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('TERAPEUTA')")
+
     public ResponseEntity<String> eliminarDiagnostico(@PathVariable("id") Integer id) {
         Diagnosticos d = dS.ListId(id);
         if (d == null) {
@@ -67,6 +76,7 @@ public class DiagnosticoController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyRole('TERAPEUTA')")
     public ResponseEntity<String> modificarDiagnostico(@RequestBody DiagnosticoDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Diagnosticos d = m.map(dto,Diagnosticos.class);
@@ -80,6 +90,8 @@ public class DiagnosticoController {
         return ResponseEntity.ok("Diagnostico "+d.getSeveridadDiagnostico()+" modificado");
     }
     @GetMapping("/severidad")
+    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA')")
+
     public ResponseEntity<?>buscarseveridad(@RequestParam String severidadDiagnostico){
         List<Diagnosticos> diagnosticos = dS.bucarporeveridad(severidadDiagnostico);
 
@@ -95,6 +107,7 @@ public class DiagnosticoController {
     }
 
     @GetMapping("/por-severidad")
+    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA')")
     public List<DiagnosticoContarPorSeveridadDTO> DiagnosticoContarPorSeveridadDTO() {
         List<Object[]> lista = dS.contarPorServeridad();
         List<DiagnosticoContarPorSeveridadDTO> listaDTO = new ArrayList<>();

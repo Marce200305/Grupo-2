@@ -17,4 +17,6 @@ public interface ICitasService {
     public List<Object[]> CitasPorMes();
     public List<Object[]> CitasPorUsuario();
     public List<Object[]> CitasPendientes();
+    public List<String[]> estadoCitasPendientes();
+
 }

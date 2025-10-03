@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.trabajogrupo2.dtos.SesionDTOInsert;
 import pe.edu.upc.trabajogrupo2.dtos.SesionDTOList;
@@ -20,6 +21,7 @@ public class SesionController {
     private ISesionesService sS;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA','PACIENTE')")
     public List<SesionDTOList> listarSesiones() {
         return sS.List().stream().map(s->{
             ModelMapper m = new ModelMapper();
@@ -28,6 +30,7 @@ public class SesionController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('TERAPEUTA','PACIENTE')")
     public ResponseEntity<String> insertarSesion(@RequestBody SesionDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Sesiones s = m.map(dto,Sesiones.class);
@@ -37,6 +40,7 @@ public class SesionController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA','PACIENTE')")
     public ResponseEntity<?> listarSesionPorId(@PathVariable("id") Integer id) {
         Sesiones s = sS.ListId(id);
         if (s == null) {
@@ -50,6 +54,7 @@ public class SesionController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA','PACIENTE')")
     public ResponseEntity<String> eliminarSesion(@PathVariable("id") Integer id) {
         Sesiones s = sS.ListId(id);
         if (s == null) {
@@ -62,6 +67,7 @@ public class SesionController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA','PACIENTE')")
     public ResponseEntity<String> modificarSesion(@RequestBody SesionDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Sesiones s = m.map(dto,Sesiones.class);

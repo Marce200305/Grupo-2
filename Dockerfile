@@ -1,25 +1,10 @@
-
-FROM maven:3.9.6-eclipse-temurin-17 AS build
+FROM maven:3.9.11-eclipse-temurin-17 AS builder
 WORKDIR /app
-COPY pom.xml .
-COPY src ./src
-COPY mvnw .
-COPY .mvn .mvn
+COPY . .
+RUN mvn clean package -DskipTests
 
-RUN chmod +x mvnw
-
-RUN ./mvnw clean package -DskipTests
-
-
-
-FROM amazoncorretto:17-alpine-jdk
-
+FROM openjdk:17-jdk-slim
 WORKDIR /app
+COPY --from=builder /app/target/*.jar app.jar
 EXPOSE 8080
-
-COPY --from=build /app/target/*.jar app.jar
-
-ENTRYPOINT ["java", "-jar", "app.jar", \
-            "--spring.datasource.url=jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}", \
-            "--spring.datasource.username=${PGUSERNAME}", \
-            "--spring.datasource.password=${PGPASSWORD}"]
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]

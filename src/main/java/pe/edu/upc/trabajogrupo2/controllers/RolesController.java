@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.trabajogrupo2.dtos.RolesDTO;
 import java.util.List;
@@ -20,6 +21,8 @@ public class RolesController {
     private IRolesService dS;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
+
     public List<RolesDTO> listarRoles(){
         return dS.List().stream().map(y->{
             ModelMapper m= new ModelMapper();
@@ -28,6 +31,8 @@ public class RolesController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
+
     public ResponseEntity<String> insertar(@Valid @RequestBody RolesDTO dto)
     {
         ModelMapper m = new ModelMapper();
@@ -38,6 +43,8 @@ public class RolesController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+
     public ResponseEntity<?> listarId(@PathVariable("id") Integer id) {
         Roles rol = dS.ListId(id);
         if (rol == null) {
@@ -51,6 +58,7 @@ public class RolesController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable("id") Integer id) {
         Roles rol = dS.ListId(id);
         if (rol == null) {
@@ -62,6 +70,8 @@ public class RolesController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
+
     public ResponseEntity<String> modificar(@RequestBody RolesDTO dto) {
         ModelMapper m = new ModelMapper();
         Roles rol = m.map(dto, Roles.class);

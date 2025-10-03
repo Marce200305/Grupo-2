@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.trabajogrupo2.dtos.TecnicaDTOInsert;
 import pe.edu.upc.trabajogrupo2.dtos.TecnicaDTOList;
@@ -23,6 +24,7 @@ public class TecnicaController {
     private ITecnicasService tS;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('TERAPEUTA','PACIENTE')")
     public List<TecnicaDTOList> listarTecnicas() {
         return tS.List().stream().map(t->{
             ModelMapper m = new ModelMapper();
@@ -31,6 +33,7 @@ public class TecnicaController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('TERAPEUTA')")
     public ResponseEntity<String> insertarTecnica(@RequestBody TecnicaDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Tecnicas t = m.map(dto, Tecnicas.class);
@@ -40,6 +43,7 @@ public class TecnicaController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('TERAPEUTA','PACIENTE')")
     public ResponseEntity<?> listarTecnicaPorId(@PathVariable("id") Integer id) {
         Tecnicas t = tS.ListId(id);
         if (t == null) {
@@ -53,6 +57,7 @@ public class TecnicaController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('TERAPEUTA')")
     public  ResponseEntity<String> eliminarTecnica(@PathVariable("id") Integer id) {
         Tecnicas t = tS.ListId(id);
         if (t == null) {
@@ -65,6 +70,7 @@ public class TecnicaController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyRole('TERAPEUTA')")
     public ResponseEntity<String> modificarTecnica(@RequestBody TecnicaDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Tecnicas t = m.map(dto, Tecnicas.class);

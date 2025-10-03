@@ -10,4 +10,6 @@ public interface IUsuarioService {
     public void delete(int id);
     public void update(Usuarios usuarios);
     public Usuarios ListId(int id);
+    public List<String[]> masCitasAgendadas();
+    public List<String[]> ReporteProgresoPaciente();
 }
