@@ -7,6 +7,7 @@ import pe.edu.upc.trabajogrupo2.repositories.IVideoconferenciasRepository;
 import pe.edu.upc.trabajogrupo2.servicesinterfaces.IVideoconferenciasService;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class VideoconferenciaServiceImplement implements IVideoconferenciasService {
@@ -42,4 +43,11 @@ public class VideoconferenciaServiceImplement implements IVideoconferenciasServi
     public List<Videoconferencias> bucarporproveedor(String proveedorVideoconferencia) {
         return dR.findByProveedor(proveedorVideoconferencia);
     }
+
+    @Override
+    public List<Object[]> ObtenerVideoConferenciasHoy() {
+        return dR.findVideoconferenciasHoy();
+    }
+
+
 }
