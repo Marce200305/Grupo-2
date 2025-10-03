@@ -27,7 +27,8 @@ public class UsuariosController {
     @GetMapping("/usuario")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     public List<UsuarioDTOList> Listarusuario(){
-        return ds.List().stream().map(y->{
+        final String ROL_PACIENTE = "PACIENTE";
+        return ds.Listarporrol(ROL_PACIENTE).stream().map(y->{
             ModelMapper m= new ModelMapper();
             return m.map(y, UsuarioDTOList.class);
         }).collect(Collectors.toList());
@@ -36,7 +37,8 @@ public class UsuariosController {
     @GetMapping("/terapeuta")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     public List<UsuarioTerapeutaDTOList> Listarterapeuta(){
-        return ds.List().stream().map(y->{
+        final String ROL_TERAPEUTA = "TERAPEUTA";
+        return ds.Listarporrol(ROL_TERAPEUTA).stream().map(y->{
             ModelMapper m= new ModelMapper();
             return m.map(y, UsuarioTerapeutaDTOList.class);
         }).collect(Collectors.toList());

@@ -12,4 +12,5 @@ public interface IUsuarioService {
     public Usuarios ListId(int id);
     public List<String[]> masCitasAgendadas();
     public List<String[]> ReporteProgresoPaciente();
-}
+    public List<Usuarios> Listarporrol(String nameRole);
+ }

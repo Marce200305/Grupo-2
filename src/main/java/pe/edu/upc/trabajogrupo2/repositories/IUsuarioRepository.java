@@ -13,6 +13,7 @@ import java.util.List;
 @Repository
 public interface IUsuarioRepository extends JpaRepository<Usuarios, Integer> {
     public Usuarios findOneByUsername(String username);
+    List<Usuarios> findByRoles_NameRole(String nameRole);
 
     @Transactional
     @Modifying

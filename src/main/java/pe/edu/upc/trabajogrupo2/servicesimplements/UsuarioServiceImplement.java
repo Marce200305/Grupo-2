@@ -61,4 +61,9 @@ public class UsuarioServiceImplement implements IUsuarioService {
         return dR.ReporteProgresoPaciente();
     }
 
+    @Override
+    public List<Usuarios> Listarporrol(String nameRole) {
+        return dR.findByRoles_NameRole(nameRole);
+    }
+
 }
