@@ -13,7 +13,10 @@ import pe.edu.upc.trabajogrupo2.entities.Diagnosticos;
 import pe.edu.upc.trabajogrupo2.entities.Videoconferencias;
 import pe.edu.upc.trabajogrupo2.servicesinterfaces.IVideoconferenciasService;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -98,4 +101,22 @@ public class VideoconferenciaController {
         }).collect(Collectors.toList());
         return ResponseEntity.ok(listaDTO);
     }
+
+
+    @GetMapping("/hoy")
+    public List<Map<String, Object>> listarVideoconferenciasHoy() {
+        List<Object[]> resultados = vcS.ObtenerVideoConferenciasHoy();
+        List<Map<String, Object>> response = new ArrayList<>();
+
+        for (Object[] row : resultados) {
+            Map<String, Object> item = new HashMap<>();
+            item.put("plataforma", row[0]);
+            item.put("link", row[1]);
+            item.put("horaCita", row[2]);
+            response.add(item);
+        }
+
+        return response;
+    }
+
 }

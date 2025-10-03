@@ -16,5 +16,7 @@ public interface ICitasService {
     public Double contarporestado( String estadoCita);
     public List<Object[]> CitasPorMes();
     public List<Object[]> CitasPorUsuario();
+    public List<Object[]> CitasPendientes();
     public List<String[]> estadoCitasPendientes();
+
 }

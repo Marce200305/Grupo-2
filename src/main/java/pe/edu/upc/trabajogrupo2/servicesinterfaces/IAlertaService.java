@@ -12,5 +12,5 @@ public interface IAlertaService {
     public void update(Alertas alertas);
     public Alertas ListId(int id);
     public List<Alertas> buscarporcanal(String canalAlerta);
-
+    public List<Object[]> alertasPorCita();
 }

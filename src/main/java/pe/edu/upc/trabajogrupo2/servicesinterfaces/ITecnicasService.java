@@ -10,4 +10,6 @@ public interface ITecnicasService {
     public void delete(int id);
     public void update(Tecnicas tecnicas);
     public Tecnicas ListId(int id);
+    public List<Object[]> tecnicasEnSesion(int idSesion);
+
 }

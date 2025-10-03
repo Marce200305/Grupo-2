@@ -12,4 +12,14 @@ import java.util.List;
 public interface IVideoconferenciasRepository extends JpaRepository<Videoconferencias, Integer> {
     @Query("SELECT v FROM Videoconferencias v WHERE v.proveedorVideoconferencia = :proveedorVideoconferencia")
     public List<Videoconferencias> findByProveedor(@Param("proveedorVideoconferencia") String proveedorVideoconferencia);
+
+
+    @Query(value = "SELECT v.proveedor, v.join_url, TO_CHAR(c.fecha, 'HH24:MI') " +
+            "FROM videoconferencias v " +
+            "JOIN citas c ON v.id_cita = c.id_cita " +
+            "WHERE DATE(c.fecha) = CURRENT_DATE",
+            nativeQuery = true)
+    List<Object[]> findVideoconferenciasHoy();
+
+
 }

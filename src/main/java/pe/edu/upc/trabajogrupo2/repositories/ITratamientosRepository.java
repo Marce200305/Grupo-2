@@ -10,9 +10,19 @@ import java.util.List;
 @Repository
 public interface ITratamientosRepository extends JpaRepository<Tratamientos, Integer> {
 
+    @Query(value = "SELECT t.id_tratamiento, u.username, t.plan_tratamientos, " +
+            "t.terapeuta_tratamientos, t.progreso_tratamientos " +
+            "FROM tratamientos t " +
+            "JOIN historial h ON t.id_historial = h.id_historial " +
+            "JOIN usuarios u ON h.id_usuario = u.id_usuario " +
+            "ORDER BY t.progreso_tratamientos DESC",
+            nativeQuery = true)
+    List<Object[]> rankingPacientes();
+
     @Query(value = "SELECT t.terapeuta_tratamientos, COUNT(t.id_tratamiento) AS Total_tratamientos\n" +
             "FROM tratamientos t\n" +
             "GROUP BY t.terapeuta_tratamientos\n" +
             "ORDER BY Total_tratamientos DESC", nativeQuery = true)
     public List<String[]> masTratamientosAsignados();
+
 }

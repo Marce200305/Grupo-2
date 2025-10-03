@@ -53,6 +53,11 @@ public class PagosServiceImplement implements IPagosService {
     public List<Object[]> RecaudacionXmes() {
         return dR.RecaudacionXmes();
     }
+
+    @Override
+    public List<Object[]> PagosPorPaciente() {
+        return dR.pagosPorPaciente();
+    }
 //
 //    @Override
 //    public Double Sumadepagos() {

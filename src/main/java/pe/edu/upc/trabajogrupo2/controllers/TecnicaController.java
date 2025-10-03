@@ -11,7 +11,10 @@ import pe.edu.upc.trabajogrupo2.dtos.TecnicaDTOList;
 import pe.edu.upc.trabajogrupo2.entities.Tecnicas;
 import pe.edu.upc.trabajogrupo2.servicesinterfaces.ITecnicasService;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -80,4 +83,22 @@ public class TecnicaController {
         tS.update(t);
         return ResponseEntity.ok("Tecnica "+t.getNombreTecnica()+" modificada");
     }
+
+    @GetMapping("/{idSesion}/tecnicas")
+    public List<Map<String, Object>> tecnicasEnSesion(@PathVariable("idSesion") int idSesion) {
+        List<Object[]> results = tS.tecnicasEnSesion(idSesion);
+
+        List<Map<String, Object>> response = new ArrayList<>();
+        for (Object[] row : results) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("idTecnica", row[0]);
+            map.put("nombre", row[1]);
+            map.put("descripcion", row[2]);
+            response.add(map);
+        }
+
+        return response;
+    }
+
+
 }
