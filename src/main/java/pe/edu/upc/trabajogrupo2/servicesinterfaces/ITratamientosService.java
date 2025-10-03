@@ -10,4 +10,5 @@ public interface ITratamientosService {
     public void delete(int id);
     public void update(Tratamientos tratamientos);
     public Tratamientos ListId(int id);
+    public List<String[]> masTratamientosAsignados();
 }

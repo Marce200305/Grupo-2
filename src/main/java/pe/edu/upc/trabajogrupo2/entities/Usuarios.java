@@ -51,18 +51,20 @@ public class Usuarios implements Serializable {
 
     public Usuarios() {}
 
-    public Usuarios(int idUsuario, String nameUsuario, String apellidoUsuario, LocalDate fechaNacimiento, String gmailUsuario, int DNIUsuario, String contrasenaUsuario, String especialidadUsuario, int numerocolegiaturaUsuario, String apoderadoUsuario, List<Roles> roles) {
+    public Usuarios(int idUsuario, String username, String password, Boolean enabled, List<Roles> roles, String nameUsuario, String apellidoUsuario, LocalDate fechaNacimiento, String gmailUsuario, int DNIUsuario, String especialidadUsuario, int numerocolegiaturaUsuario, String apoderadoUsuario) {
         this.idUsuario = idUsuario;
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
+        this.roles = roles;
         this.nameUsuario = nameUsuario;
         this.apellidoUsuario = apellidoUsuario;
         this.fechaNacimiento = fechaNacimiento;
         this.gmailUsuario = gmailUsuario;
         this.DNIUsuario = DNIUsuario;
-        this.password = contrasenaUsuario;
         this.especialidadUsuario = especialidadUsuario;
         this.numerocolegiaturaUsuario = numerocolegiaturaUsuario;
         this.apoderadoUsuario = apoderadoUsuario;
-        this.roles = roles;
     }
 
     public int getIdUsuario() { return idUsuario; }

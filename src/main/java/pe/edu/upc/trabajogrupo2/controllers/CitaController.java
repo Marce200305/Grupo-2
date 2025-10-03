@@ -10,6 +10,8 @@ import pe.edu.upc.trabajogrupo2.entities.Citas;
 import pe.edu.upc.trabajogrupo2.servicesinterfaces.ICitasService;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -134,4 +136,22 @@ public class CitaController {
         return listaDTO;
     }
 
+    @GetMapping("/reporte-estado-citas-pendientes")
+    public ResponseEntity<?> SeguimientoCitasPendientes(){
+        List<EstadoCitasPendientesDTO> listaDTO = new ArrayList<>();
+        List<String[]> fila = cS.estadoCitasPendientes();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+
+        for(String[] s:fila){
+            EstadoCitasPendientesDTO dto = new EstadoCitasPendientesDTO();
+            dto.setIdCita(Integer.parseInt(s[0]));
+            dto.setNameUsuario(s[1]);
+            dto.setApellidoUsuario(s[2]);
+            dto.setEstadoCita(s[3]);
+            dto.setFechaCita(LocalDateTime.parse(s[4], formatter));
+            listaDTO.add(dto);
+        }
+        return ResponseEntity.ok(listaDTO);
+    }
 }
