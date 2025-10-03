@@ -21,9 +21,9 @@ public class Usuarios implements Serializable {
 
     private Boolean enabled;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private List<Roles> roles;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "idRol")
+    private Roles roles;
 
     @Column(name = "nameUsuario", length = 50, nullable = false)
     private String nameUsuario;
@@ -93,6 +93,11 @@ public class Usuarios implements Serializable {
     public void setPassword(String password) { this.password = password; }
     public Boolean getEnabled() { return enabled; }
     public void setEnabled(Boolean enabled) { this.enabled = enabled; }
-    public List<Roles> getRoles() { return roles; }
-    public void setRoles(List<Roles> roles) { this.roles = roles; }
+    public Roles getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Roles roles) {
+        this.roles = roles;
+    }
 }
