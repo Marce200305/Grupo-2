@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.trabajogrupo2.dtos.ReporteDTOInsert;
 import pe.edu.upc.trabajogrupo2.dtos.ReporteDTOList;
@@ -20,6 +21,7 @@ public class ReporteController {
     private IReporteService rS;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA','PACIENTE')")
     public List<ReporteDTOList> listarReportes() {
         return rS.List().stream().map(r->{
             ModelMapper m = new ModelMapper();
@@ -28,6 +30,7 @@ public class ReporteController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('TERAPEUTA')")
     public ResponseEntity<String> insertarReporte(@RequestBody ReporteDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Reporte r = m.map(dto,Reporte.class);
@@ -37,6 +40,7 @@ public class ReporteController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA')")
     public ResponseEntity<?> listarReportePorId(@PathVariable("id") Integer id) {
         Reporte r = rS.ListId(id);
         if (r == null) {
@@ -50,6 +54,7 @@ public class ReporteController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<String> eliminarReporte(@PathVariable("id") Integer id) {
         Reporte r = rS.ListId(id);
         if (r == null) {
@@ -62,6 +67,7 @@ public class ReporteController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<String> modificarReporte(@RequestBody ReporteDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Reporte r = m.map(dto,Reporte.class);
