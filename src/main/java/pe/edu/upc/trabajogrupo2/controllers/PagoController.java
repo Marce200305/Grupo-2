@@ -11,6 +11,7 @@ import pe.edu.upc.trabajogrupo2.entities.Pagos;
 import pe.edu.upc.trabajogrupo2.servicesinterfaces.IPagosService;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -137,4 +138,25 @@ public class PagoController {
 
         return ResponseEntity.ok(dtoList);
     }
+
+
+    @GetMapping("/por-paciente")
+    public List<PagosPorPacienteDTO> pagosPorPaciente() {
+        List<Object[]> lista = pS.PagosPorPaciente();
+        List<PagosPorPacienteDTO> listaDTO = new ArrayList<>();
+
+        for (Object[] obj : lista) {
+            PagosPorPacienteDTO dto = new PagosPorPacienteDTO();
+            dto.setIdUsuario(((Number) obj[0]).intValue());
+            dto.setUsername((String) obj[1]);
+            dto.setTotalPagado(((Number) obj[2]).doubleValue());
+            listaDTO.add(dto);
+        }
+
+        return listaDTO;
+    }
+
+
+
+
 }

@@ -7,11 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.trabajogrupo2.dtos.AlertaDTOInsert;
 import pe.edu.upc.trabajogrupo2.dtos.AlertaDTOList;
+import pe.edu.upc.trabajogrupo2.dtos.AlertaPorCitaDTO;
 import pe.edu.upc.trabajogrupo2.dtos.DiagnosticoDTOList;
 import pe.edu.upc.trabajogrupo2.entities.Alertas;
 import pe.edu.upc.trabajogrupo2.entities.Diagnosticos;
 import pe.edu.upc.trabajogrupo2.servicesinterfaces.IAlertaService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -90,4 +92,25 @@ public class AlertaController {
         }).collect(Collectors.toList());
         return ResponseEntity.ok(listaDTO);
     }
+
+
+    @GetMapping("/por-cita")
+    public List<AlertaPorCitaDTO> alertasPorCita() {
+        List<Object[]> lista = alertaService.alertasPorCita();
+        List<AlertaPorCitaDTO> listaDTO = new ArrayList<>();
+
+        for (Object[] obj : lista) {
+            AlertaPorCitaDTO dto = new AlertaPorCitaDTO();
+            dto.setIdCita((Integer) obj[0]);
+            dto.setFechaCita(((java.sql.Timestamp) obj[1]).toLocalDateTime());
+            dto.setTituloAlerta((String) obj[2]);
+            dto.setMensajeAlerta((String) obj[3]);
+            dto.setCanalAlerta((String) obj[4]);
+            listaDTO.add(dto);
+        }
+
+        return listaDTO;
+    }
+
+
 }

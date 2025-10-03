@@ -16,5 +16,6 @@ public interface IPagosService {
     public Double RecaudacionPorFechas(LocalDateTime fecha1, LocalDateTime fecha2);
     public Double PromedioDePagoPorFechas(LocalDateTime fecha1, LocalDateTime fecha2);
     public List<Object[]> RecaudacionXmes();
+    public List<Object[]> PagosPorPaciente();
 
 }
