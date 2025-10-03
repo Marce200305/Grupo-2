@@ -24,7 +24,7 @@ public class TecnicaController {
     private ITecnicasService tS;
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('TERAPEUTA','PACIENTE')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA','PACIENTE')")
     public List<TecnicaDTOList> listarTecnicas() {
         return tS.List().stream().map(t->{
             ModelMapper m = new ModelMapper();
@@ -33,7 +33,7 @@ public class TecnicaController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA')")
     public ResponseEntity<String> insertarTecnica(@RequestBody TecnicaDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Tecnicas t = m.map(dto, Tecnicas.class);
@@ -43,7 +43,7 @@ public class TecnicaController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('TERAPEUTA','PACIENTE')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA','PACIENTE')")
     public ResponseEntity<?> listarTecnicaPorId(@PathVariable("id") Integer id) {
         Tecnicas t = tS.ListId(id);
         if (t == null) {
@@ -57,7 +57,7 @@ public class TecnicaController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole('TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA')")
     public  ResponseEntity<String> eliminarTecnica(@PathVariable("id") Integer id) {
         Tecnicas t = tS.ListId(id);
         if (t == null) {
@@ -70,7 +70,7 @@ public class TecnicaController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyRole('TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA')")
     public ResponseEntity<String> modificarTecnica(@RequestBody TecnicaDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Tecnicas t = m.map(dto, Tecnicas.class);
@@ -85,6 +85,7 @@ public class TecnicaController {
     }
 
     @GetMapping("/{idSesion}/tecnicas")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public List<Map<String, Object>> tecnicasEnSesion(@PathVariable("idSesion") int idSesion) {
         List<Object[]> results = tS.tecnicasEnSesion(idSesion);
 

@@ -21,8 +21,7 @@ public class RolesController {
     private IRolesService dS;
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN')")
-
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public List<RolesDTO> listarRoles(){
         return dS.List().stream().map(y->{
             ModelMapper m= new ModelMapper();
@@ -31,7 +30,7 @@ public class RolesController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
 
     public ResponseEntity<String> insertar(@Valid @RequestBody RolesDTO dto)
     {
@@ -43,7 +42,7 @@ public class RolesController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
 
     public ResponseEntity<?> listarId(@PathVariable("id") Integer id) {
         Roles rol = dS.ListId(id);
@@ -58,7 +57,7 @@ public class RolesController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<String> eliminar(@PathVariable("id") Integer id) {
         Roles rol = dS.ListId(id);
         if (rol == null) {
@@ -70,7 +69,7 @@ public class RolesController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
 
     public ResponseEntity<String> modificar(@RequestBody RolesDTO dto) {
         ModelMapper m = new ModelMapper();

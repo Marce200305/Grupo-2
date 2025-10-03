@@ -25,7 +25,7 @@ public class AlertaController {
     private IAlertaService alertaService;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public List<AlertaDTOList> listarAlertas() {
         return alertaService.List().stream().map(a->{
             ModelMapper m = new ModelMapper();
@@ -34,7 +34,7 @@ public class AlertaController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA')")
     public ResponseEntity<String> insertarAlerta(@RequestBody AlertaDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Alertas a = m.map(dto,Alertas.class);
@@ -44,7 +44,7 @@ public class AlertaController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA')")
     public ResponseEntity<?> listarAlertaPorId(@PathVariable("id") Integer id) {
         Alertas a = alertaService.ListId(id);
         if (a == null) {
@@ -58,7 +58,7 @@ public class AlertaController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA')")
     public ResponseEntity<String> eliminarAlerta(@PathVariable("id") Integer id) {
         Alertas a = alertaService.ListId(id);
         if (a == null) {
@@ -71,7 +71,7 @@ public class AlertaController {
     }
 
     @PutMapping()
-    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA')")
     public ResponseEntity<String> modificarAlerta(@RequestBody AlertaDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Alertas a = m.map(dto,Alertas.class);
@@ -85,7 +85,7 @@ public class AlertaController {
         return ResponseEntity.ok("Alerta "+a.getTituloAlerta()+" modificado");
     }
     @GetMapping("/canales")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?>buscarcanal(@RequestParam String canalAlerta){
         List<Alertas> alertas = alertaService.buscarporcanal(canalAlerta);
 
@@ -102,6 +102,7 @@ public class AlertaController {
 
 
     @GetMapping("/por-cita")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public List<AlertaPorCitaDTO> alertasPorCita() {
         List<Object[]> lista = alertaService.alertasPorCita();
         List<AlertaPorCitaDTO> listaDTO = new ArrayList<>();

@@ -25,7 +25,7 @@ public class TratamientoController {
     private ITratamientosService tS;
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('TERAPEUTA','PACIENTE')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA','PACIENTE')")
     public List<TratamientoDTOList> listarTratamientos() {
         return tS.List().stream().map(t->{
             ModelMapper m = new ModelMapper();
@@ -34,7 +34,7 @@ public class TratamientoController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('TERAPEUTA','PACIENTE')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA','PACIENTE')")
     public ResponseEntity<String> insertarTratamiento(@RequestBody TratamientoDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Tratamientos t = m.map(dto, Tratamientos.class);
@@ -44,7 +44,7 @@ public class TratamientoController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('TERAPEUTA','PACIENTE')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA','PACIENTE')")
     public ResponseEntity<?> listarTratamientoPorId(@PathVariable("id") Integer id) {
         Tratamientos t = tS.ListId(id);
         if (t == null) {
@@ -58,7 +58,7 @@ public class TratamientoController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole('TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA')")
     public ResponseEntity<String> eliminarTratamiento(@PathVariable("id") Integer id) {
         Tratamientos t = tS.ListId(id);
         if (t == null) {
@@ -71,7 +71,7 @@ public class TratamientoController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyRole('TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA')")
     public ResponseEntity<String> modificarTratamiento(@RequestBody TratamientoDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Tratamientos t = m.map(dto, Tratamientos.class);
@@ -87,6 +87,7 @@ public class TratamientoController {
 
 
     @GetMapping("/ranking-progreso")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public List<Map<String, Object>> rankingPacientes() {
         List<Object[]> results = tS.rankingPacientes();
 
@@ -105,7 +106,7 @@ public class TratamientoController {
 
 
     @GetMapping("/tratamientos-terapeuta")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> masTratamientosAsignados(){
         List<TratamientosAsignadosDTO> listaDTO = new ArrayList<>();
         List<String[]> fila = tS.masTratamientosAsignados();

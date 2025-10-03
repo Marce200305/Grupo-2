@@ -25,7 +25,7 @@ public class UsuariosController {
     @Autowired
     private IUsuarioService ds;
     @GetMapping("/usuario")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public List<UsuarioDTOList> Listarusuario(){
         return ds.List().stream().map(y->{
             ModelMapper m= new ModelMapper();
@@ -34,7 +34,7 @@ public class UsuariosController {
 
     }
     @GetMapping("/terapeuta")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public List<UsuarioTerapeutaDTOList> Listarterapeuta(){
         return ds.List().stream().map(y->{
             ModelMapper m= new ModelMapper();
@@ -44,7 +44,7 @@ public class UsuariosController {
     }
 
     @PostMapping("/usuario")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<String> insertarusuario(@RequestBody UsuarioDTOInsert dto)
     {
         ModelMapper m = new ModelMapper();
@@ -54,7 +54,7 @@ public class UsuariosController {
                 .body("Usuario creado exitosamente: " + d.getNameUsuario());
     }
     @PostMapping("/terapeuta")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<String> insertarterapeuta(@RequestBody UsuarioTerapeutaDTOInsert dto)
     {
         ModelMapper m = new ModelMapper();
@@ -65,7 +65,7 @@ public class UsuariosController {
     }
 
     @GetMapping ("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> ListId(@PathVariable("id") Integer id) {
         Usuarios d= ds.ListId(id);
 
@@ -80,7 +80,7 @@ public class UsuariosController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<String> deletear(@PathVariable("id") Integer id) {
         Usuarios d = ds.ListId(id);
         if (d == null) {
@@ -93,7 +93,7 @@ public class UsuariosController {
     }
 
     @PutMapping("/usuario")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<String> updatear(@RequestBody UsuarioDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Usuarios d = m.map(dto, Usuarios.class);
@@ -109,7 +109,7 @@ public class UsuariosController {
     }
 
     @PutMapping("/terapeuta")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<String> updatearterapeuta(@RequestBody UsuarioTerapeutaDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Usuarios d = m.map(dto, Usuarios.class);
@@ -125,7 +125,7 @@ public class UsuariosController {
     }
 
     @GetMapping("/mas-citas-agendadas")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> TotalCitasDesc(){
         List<TotalCitasUsuarioDTO> listaDTO = new ArrayList<>();
         List<String[]> fila = ds.masCitasAgendadas();
@@ -140,7 +140,7 @@ public class UsuariosController {
     }
 
     @GetMapping("/estado-progreso-usuario")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> ProgresoDeUsuario(){
         List<ReporteProgresoUsuarioDTO> listaDTO = new ArrayList<>();
         List<String[]> fila = ds.ReporteProgresoPaciente();

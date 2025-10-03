@@ -26,7 +26,7 @@ public class DiagnosticoController {
     private IDiagnosticosService dS;
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA','PACIENTE')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA','PACIENTE')")
 
     public List<DiagnosticoDTOList> listarDiagnosticos() {
         return dS.List().stream().map(a->{
@@ -36,7 +36,7 @@ public class DiagnosticoController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA')")
 
     public ResponseEntity<String> insertarDiagnostico(@RequestBody DiagnosticoDTOInsert dto) {
         ModelMapper m = new ModelMapper();
@@ -47,7 +47,7 @@ public class DiagnosticoController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA')")
 
     public ResponseEntity<?> listarDiagnosticoPorId(@PathVariable("id") Integer id) {
         Diagnosticos d = dS.ListId(id);
@@ -62,7 +62,7 @@ public class DiagnosticoController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole('TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA')")
 
     public ResponseEntity<String> eliminarDiagnostico(@PathVariable("id") Integer id) {
         Diagnosticos d = dS.ListId(id);
@@ -76,7 +76,7 @@ public class DiagnosticoController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyRole('TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA')")
     public ResponseEntity<String> modificarDiagnostico(@RequestBody DiagnosticoDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Diagnosticos d = m.map(dto,Diagnosticos.class);
@@ -90,7 +90,7 @@ public class DiagnosticoController {
         return ResponseEntity.ok("Diagnostico "+d.getSeveridadDiagnostico()+" modificado");
     }
     @GetMapping("/severidad")
-    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA')")
 
     public ResponseEntity<?>buscarseveridad(@RequestParam String severidadDiagnostico){
         List<Diagnosticos> diagnosticos = dS.bucarporeveridad(severidadDiagnostico);
@@ -107,7 +107,7 @@ public class DiagnosticoController {
     }
 
     @GetMapping("/por-severidad")
-    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA')")
     public List<DiagnosticoContarPorSeveridadDTO> DiagnosticoContarPorSeveridadDTO() {
         List<Object[]> lista = dS.contarPorServeridad();
         List<DiagnosticoContarPorSeveridadDTO> listaDTO = new ArrayList<>();

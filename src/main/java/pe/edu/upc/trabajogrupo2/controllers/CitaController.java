@@ -23,7 +23,6 @@ public class CitaController {
     private ICitasService cS;
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA','PACIENTE')")
     public List<CitaDTOList> listarCitas() {
         return cS.List().stream().map(a->{
             ModelMapper m = new ModelMapper();
@@ -32,7 +31,7 @@ public class CitaController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA','PACIENTE')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA','PACIENTE')")
     public ResponseEntity<String> insertarCita(@RequestBody CitaDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Citas c = m.map(dto,Citas.class);
@@ -42,7 +41,7 @@ public class CitaController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA')")
     public ResponseEntity<?> listarCitaPorId(@PathVariable("id") Integer id) {
         Citas c = cS.ListId(id);
         if (c == null) {
@@ -56,7 +55,7 @@ public class CitaController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA','PACIENTE')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA','PACIENTE')")
     public ResponseEntity<String> eliminarCita(@PathVariable("id") Integer id) {
         Citas c = cS.ListId(id);
         if (c == null) {
@@ -69,7 +68,7 @@ public class CitaController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyRole('ADMIN','TERAPEUTA','PACIENTE')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA','PACIENTE')")
     public ResponseEntity<String> modificarCita(@RequestBody CitaDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Citas c = m.map(dto,Citas.class);
@@ -83,7 +82,7 @@ public class CitaController {
         return ResponseEntity.ok("Cita "+c.getMotivoCita()+" modificada");
     }
     @GetMapping("/busquedafecha")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?>buscar(@RequestParam LocalDate fechaCita){
         List<Citas> citas = cS.buscarcita(fechaCita);
 
@@ -98,7 +97,7 @@ public class CitaController {
         return ResponseEntity.ok(listaDTO);
     }
     @GetMapping("/cantidadcitas")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> obtenerCantidad(@RequestParam String estadoCta) {
         Double cantidad=cS.contarporestado(estadoCta);
 
@@ -113,7 +112,7 @@ public class CitaController {
     }
 
     @GetMapping("/por-mes")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public List<CitasPorMesDTO> citasPorMes() {
         List<Object[]> lista = cS.CitasPorMes();
         List<CitasPorMesDTO> listaDTO = new ArrayList<>();
@@ -130,7 +129,7 @@ public class CitaController {
 
 
     @GetMapping("/por-usuario")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public List<CitaPorUsuarioDTO> citasPorUsuario() {
         List<Object[]> lista = cS.CitasPorUsuario();
         List<CitaPorUsuarioDTO> listaDTO = new ArrayList<>();
@@ -147,6 +146,7 @@ public class CitaController {
 
 
     @GetMapping("/pendientes")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public List<CitaPendienteDTO> listarCitasPendientes() {
         List<Object[]> lista = cS.CitasPendientes();
         List<CitaPendienteDTO> listaDTO = new ArrayList<>();
@@ -162,7 +162,7 @@ public class CitaController {
     }
 
     @GetMapping("/reporte-estado-citas-pendientes")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> SeguimientoCitasPendientes(){
         List<EstadoCitasPendientesDTO> listaDTO = new ArrayList<>();
         List<String[]> fila = cS.estadoCitasPendientes();
