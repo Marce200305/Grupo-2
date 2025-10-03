@@ -10,7 +10,7 @@ public class UsuarioTerapeutaDTOInsert {
     private String nameUsuario;
     private String apellidoUsuario;
     private String especialidadUsuario;
-    private int numerocolegiaturaUsuario;
+    private Integer numerocolegiaturaUsuario;
     private LocalDate fechaNacimiento;
     private String gmailUsuario;
     private int DNIUsuario;
@@ -57,11 +57,11 @@ public class UsuarioTerapeutaDTOInsert {
         this.especialidadUsuario = especialidadUsuario;
     }
 
-    public int getNumerocolegiaturaUsuario() {
+    public Integer getNumerocolegiaturaUsuario() {
         return numerocolegiaturaUsuario;
     }
 
-    public void setNumerocolegiaturaUsuario(int numerocolegiaturaUsuario) {
+    public void setNumerocolegiaturaUsuario(Integer numerocolegiaturaUsuario) {
         this.numerocolegiaturaUsuario = numerocolegiaturaUsuario;
     }
 

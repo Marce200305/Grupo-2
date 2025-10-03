@@ -44,14 +44,14 @@ public class Usuarios implements Serializable {
     private String especialidadUsuario;
 
     @Column(name = "numerocolegiaturaUsuario", length = 50, nullable = true)
-    private int numerocolegiaturaUsuario;
+    private Integer numerocolegiaturaUsuario;
 
     @Column(name = "apoderadoUsuario", length = 50, nullable = true)
     private String apoderadoUsuario;
 
     public Usuarios() {}
 
-    public Usuarios(int idUsuario, String username, String password, Boolean enabled, Roles roles, String nameUsuario, String apellidoUsuario, LocalDate fechaNacimiento, String gmailUsuario, int DNIUsuario, String especialidadUsuario, int numerocolegiaturaUsuario, String apoderadoUsuario) {
+    public Usuarios(int idUsuario, String username, String password, Boolean enabled, Roles roles, String nameUsuario, String apellidoUsuario, LocalDate fechaNacimiento, String gmailUsuario, int DNIUsuario, String especialidadUsuario, Integer numerocolegiaturaUsuario, String apoderadoUsuario) {
         this.idUsuario = idUsuario;
         this.username = username;
         this.password = password;
@@ -81,8 +81,8 @@ public class Usuarios implements Serializable {
     public void setDNIUsuario(int DNIUsuario) { this.DNIUsuario = DNIUsuario; }
     public String getEspecialidadUsuario() { return especialidadUsuario; }
     public void setEspecialidadUsuario(String especialidadUsuario) { this.especialidadUsuario = especialidadUsuario; }
-    public int getNumerocolegiaturaUsuario() { return numerocolegiaturaUsuario; }
-    public void setNumerocolegiaturaUsuario(int numerocolegiaturaUsuario) { this.numerocolegiaturaUsuario = numerocolegiaturaUsuario; }
+    public Integer getNumerocolegiaturaUsuario() { return numerocolegiaturaUsuario; }
+    public void setNumerocolegiaturaUsuario(Integer numerocolegiaturaUsuario) { this.numerocolegiaturaUsuario = numerocolegiaturaUsuario; }
     public String getApoderadoUsuario() { return apoderadoUsuario; }
     public void setApoderadoUsuario(String apoderadoUsuario) { this.apoderadoUsuario = apoderadoUsuario; }
 
