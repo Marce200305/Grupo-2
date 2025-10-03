@@ -58,5 +58,10 @@ public class CitasServiceImplement implements ICitasService {
         return dR.CitasPorUsuario();
     }
 
+    @Override
+    public List<Object[]> CitasPendientes() {
+        return dR.citasPendientes();
+    }
+
 
 }

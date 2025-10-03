@@ -29,5 +29,10 @@ public interface ICitasRepository extends JpaRepository<Citas, Integer> {
             "ORDER BY total DESC", nativeQuery = true)
     List<Object[]> CitasPorUsuario();
 
+    @Query(value = "SELECT c.id_cita, c.estado_cita, c.fecha_cita " +
+            "FROM citas c " +
+            "WHERE c.estado_cita = 'Pendiente' " +
+            "ORDER BY c.fecha_cita ASC", nativeQuery = true)
+    List<Object[]> citasPendientes();
 
 }

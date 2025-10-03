@@ -134,4 +134,20 @@ public class CitaController {
         return listaDTO;
     }
 
+    @GetMapping("/pendientes")
+    public List<CitaPendienteDTO> listarCitasPendientes() {
+        List<Object[]> lista = cS.CitasPendientes();
+        List<CitaPendienteDTO> listaDTO = new ArrayList<>();
+
+        for (Object[] obj : lista) {
+            CitaPendienteDTO dto = new CitaPendienteDTO();
+            dto.setIdCita((Integer) obj[0]);
+            dto.setEstado((String) obj[1]);
+            dto.setFecha(((java.sql.Timestamp) obj[2]).toLocalDateTime());
+            listaDTO.add(dto);
+        }
+        return listaDTO;
+    }
+
+
 }
