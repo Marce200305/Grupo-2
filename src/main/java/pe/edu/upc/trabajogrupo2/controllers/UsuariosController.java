@@ -12,6 +12,9 @@ import pe.edu.upc.trabajogrupo2.entities.Videoconferencias;
 import pe.edu.upc.trabajogrupo2.repositories.IUsuarioRepository;
 import pe.edu.upc.trabajogrupo2.servicesinterfaces.IUsuarioService;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -111,5 +114,38 @@ public class UsuariosController {
         ds.update(d);
         return ResponseEntity.ok("Usuario en "
                 +d.getNameUsuario()+" modificada");
+    }
+
+    @GetMapping("/mas-citas-agendadas")
+    public ResponseEntity<?> TotalCitasDesc(){
+        List<TotalCitasUsuarioDTO> listaDTO = new ArrayList<>();
+        List<String[]> fila = ds.masCitasAgendadas();
+        for(String[] s:fila){
+            TotalCitasUsuarioDTO dto = new TotalCitasUsuarioDTO();
+            dto.setNameUsuario(s[0]);
+            dto.setApellidoUsuario(s[1]);
+            dto.setCantidadCitas(Integer.parseInt(s[2]));
+            listaDTO.add(dto);
+        }
+        return ResponseEntity.ok(listaDTO);
+    }
+
+    @GetMapping("/estado-progreso-usuario")
+    public ResponseEntity<?> ProgresoDeUsuario(){
+        List<ReporteProgresoUsuarioDTO> listaDTO = new ArrayList<>();
+        List<String[]> fila = ds.ReporteProgresoPaciente();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+
+        for(String[] s:fila){
+            ReporteProgresoUsuarioDTO dto = new ReporteProgresoUsuarioDTO();
+            dto.setNameUsuario(s[0]);
+            dto.setApellidoUsuario(s[1]);
+            dto.setFechaReporte(LocalDateTime.parse(s[2], formatter));
+            dto.setDetalleReporte(s[3]);
+            dto.setProgresoReporte(Integer.parseInt(s[4]));
+            listaDTO.add(dto);
+        }
+        return ResponseEntity.ok(listaDTO);
     }
 }

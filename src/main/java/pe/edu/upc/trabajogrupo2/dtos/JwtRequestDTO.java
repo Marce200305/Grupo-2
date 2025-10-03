@@ -11,6 +11,7 @@ public class JwtRequestDTO implements Serializable {
         super();
     }
     public JwtRequestDTO(String username, String password) {
+        super();
         this.username = username;
         this.password = password;
     }

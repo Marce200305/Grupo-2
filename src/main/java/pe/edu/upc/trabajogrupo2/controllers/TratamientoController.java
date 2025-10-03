@@ -1,5 +1,6 @@
 package pe.edu.upc.trabajogrupo2.controllers;
 
+import org.apache.coyote.Response;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -7,9 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.trabajogrupo2.dtos.TratamientoDTOInsert;
 import pe.edu.upc.trabajogrupo2.dtos.TratamientoDTOList;
+import pe.edu.upc.trabajogrupo2.dtos.TratamientosAsignadosDTO;
 import pe.edu.upc.trabajogrupo2.entities.Tratamientos;
 import pe.edu.upc.trabajogrupo2.servicesinterfaces.ITratamientosService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,5 +76,19 @@ public class TratamientoController {
         }
         tS.update(t);
         return ResponseEntity.ok("Tratamiento "+t.getObjetivoTratamiento()+" modificado");
+    }
+
+    @GetMapping("/tratamientos-terapeuta")
+    public ResponseEntity<?> masTratamientosAsignados(){
+        List<TratamientosAsignadosDTO> listaDTO = new ArrayList<>();
+        List<String[]> fila = tS.masTratamientosAsignados();
+        for(String[] s:fila)
+        {
+            TratamientosAsignadosDTO dto = new TratamientosAsignadosDTO();
+            dto.setTerapeutaTratamiento(s[0]);
+            dto.setCantidadTratamientos(Integer.parseInt(s[1]));
+            listaDTO.add(dto);
+        }
+        return ResponseEntity.ok(listaDTO);
     }
 }

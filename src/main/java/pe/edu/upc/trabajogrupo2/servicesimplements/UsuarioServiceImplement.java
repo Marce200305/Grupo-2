@@ -51,4 +51,14 @@ public class UsuarioServiceImplement implements IUsuarioService {
         return dR.findById(id).orElse(null);
     }
 
+    @Override
+    public List<String[]> masCitasAgendadas() {
+        return dR.masCitasAgendadas();
+    }
+
+    @Override
+    public List<String[]> ReporteProgresoPaciente() {
+        return dR.ReporteProgresoPaciente();
+    }
+
 }
