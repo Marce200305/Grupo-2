@@ -37,4 +37,11 @@ public class TecnicasServiceImplement implements ITecnicasService {
     public Tecnicas ListId(int id) {
         return dR.findById(id).orElse(null);
     }
+
+    @Override
+    public List<Object[]> tecnicasEnSesion(int idSesion) {
+        return dR.tecnicasEnSesion(idSesion);
+    }
+
+
 }
