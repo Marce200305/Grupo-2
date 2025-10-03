@@ -10,7 +10,10 @@ import pe.edu.upc.trabajogrupo2.dtos.TratamientoDTOList;
 import pe.edu.upc.trabajogrupo2.entities.Tratamientos;
 import pe.edu.upc.trabajogrupo2.servicesinterfaces.ITratamientosService;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -74,4 +77,23 @@ public class TratamientoController {
         tS.update(t);
         return ResponseEntity.ok("Tratamiento "+t.getObjetivoTratamiento()+" modificado");
     }
+
+
+    @GetMapping("/ranking-progreso")
+    public List<Map<String, Object>> rankingPacientes() {
+        List<Object[]> results = tS.rankingPacientes();
+
+        List<Map<String, Object>> response = new ArrayList<>();
+        for (Object[] row : results) {
+            Map<String, Object> item = new HashMap<>();
+            item.put("idTratamiento", row[0]);
+            item.put("paciente", row[1]);
+            item.put("plan", row[2]);
+            item.put("terapeuta", row[3]);
+            item.put("progreso", row[4]);
+            response.add(item);
+        }
+        return response;
+    }
+
 }

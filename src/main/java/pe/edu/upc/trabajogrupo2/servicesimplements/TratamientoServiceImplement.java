@@ -38,4 +38,9 @@ public class TratamientoServiceImplement implements ITratamientosService {
     public Tratamientos ListId(int id) {
         return dR.findById(id).orElse(null);
     }
+
+    @Override
+    public List<Object[]> rankingPacientes() {
+        return dR.rankingPacientes();
+    }
 }
