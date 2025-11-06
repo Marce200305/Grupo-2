@@ -21,10 +21,12 @@ public interface IUsuarioRepository extends JpaRepository<Usuarios, Integer> {
     public void insRol(@Param("rol") String authority, @Param("user_id") Integer user_id);
 
     @Query(value = "SELECT u.name_usuario, u.apellido_usuario, COUNT(c.id_cita) AS Total_citas\n" +
-            "FROM usuarios u\n" +
-            "JOIN citas c ON u.id_usuario = c.id_usuario\n" +
-            "GROUP BY u.id_usuario\n" +
-            "ORDER BY Total_citas DESC", nativeQuery = true)
+            "            FROM usuarios u\n" +
+            "            JOIN citas c ON u.id_usuario = c.id_usuario\n" +
+            "\t\t\tJOIN roles r ON u.id_rol = r.id_rol\n" +
+            "\t\t\tWHERE r.name_role LIKE 'PACIENTE'\n" +
+            "            GROUP BY u.id_usuario\n" +
+            "            ORDER BY Total_citas DESC", nativeQuery = true)
     public List<String[]> masCitasAgendadas();
 
     @Query(value = "SELECT u.name_usuario, u.apellido_usuario, r.fecha_reporte, r.detalle_reporte, r.progreso_reporte\n" +

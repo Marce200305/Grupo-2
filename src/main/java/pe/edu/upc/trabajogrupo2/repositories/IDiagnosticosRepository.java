@@ -10,8 +10,9 @@ import java.util.List;
 
 @Repository
 public interface IDiagnosticosRepository extends JpaRepository<Diagnosticos, Integer> {
-    @Query("SELECT d FROM Diagnosticos d WHERE d.severidadDiagnostico = :severidadDiagnostico")
-    public List<Diagnosticos> findBySeveridad(@Param("severidadDiagnostico") String severidadDiagnostico);
+    @Query("SELECT d FROM Diagnosticos d WHERE d.severidadDiagnostico = :severidadDiagnostico AND d.descripcionDiagnostico =:descripcionDiagnostico ")
+    public List<Diagnosticos> findBySeveridad(@Param("severidadDiagnostico") String severidadDiagnostico,
+                                              @Param(("descripcionDiagnostico") ) String descripcionDiagnostico);
 
     @Query("SELECT d.severidadDiagnostico, COUNT(d) " +
             "FROM Diagnosticos d " +

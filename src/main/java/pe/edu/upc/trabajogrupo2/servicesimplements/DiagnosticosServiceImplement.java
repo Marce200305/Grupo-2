@@ -39,8 +39,8 @@ public class DiagnosticosServiceImplement implements IDiagnosticosService {
     }
 
     @Override
-    public List<Diagnosticos> bucarporeveridad(String severidadDiagnostico) {
-        return dR.findBySeveridad(severidadDiagnostico);
+    public List<Diagnosticos> bucarporeveridad(String severidadDiagnostico,String descripcionDiagnostico) {
+        return dR.findBySeveridad(severidadDiagnostico,descripcionDiagnostico);
     }
 
     @Override

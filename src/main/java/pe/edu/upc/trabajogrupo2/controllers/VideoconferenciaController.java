@@ -59,7 +59,7 @@ public class VideoconferenciaController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA','PACIENTE')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA')")
     public ResponseEntity<String> eliminarVideoconferencia(@PathVariable("id") Integer id) {
         Videoconferencias vc = vcS.ListId(id);
         if (vc == null) {
@@ -104,7 +104,7 @@ public class VideoconferenciaController {
 
 
     @GetMapping("/hoy")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('Usuario')")
     public List<Map<String, Object>> listarVideoconferenciasHoy() {
         List<Object[]> resultados = vcS.ObtenerVideoConferenciasHoy();
         List<Map<String, Object>> response = new ArrayList<>();

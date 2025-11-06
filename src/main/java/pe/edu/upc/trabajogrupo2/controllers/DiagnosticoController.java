@@ -92,8 +92,9 @@ public class DiagnosticoController {
     @GetMapping("/severidad")
     @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA')")
 
-    public ResponseEntity<?>buscarseveridad(@RequestParam String severidadDiagnostico){
-        List<Diagnosticos> diagnosticos = dS.bucarporeveridad(severidadDiagnostico);
+    public ResponseEntity<?>buscarseveridad(@RequestParam String severidadDiagnostico,
+                                            @RequestParam String descripcionDiagnostico){
+        List<Diagnosticos> diagnosticos = dS.bucarporeveridad(severidadDiagnostico,descripcionDiagnostico);
 
         if(diagnosticos.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).

@@ -16,7 +16,7 @@ public interface IDiagnosticosService {
 
     public Diagnosticos ListId(int id);
 
-    public List<Diagnosticos> bucarporeveridad(String severidadDiagnostico);
+    public List<Diagnosticos> bucarporeveridad(String severidadDiagnostico, String descripcionDiagnostico);
 
     public List<Object[]> contarPorServeridad();
 
