@@ -21,7 +21,6 @@ public class RolesController {
     private IRolesService dS;
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public List<RolesDTO> listarRoles(){
         return dS.List().stream().map(y->{
             ModelMapper m= new ModelMapper();
@@ -30,21 +29,19 @@ public class RolesController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
-
     public ResponseEntity<String> insertar(@Valid @RequestBody RolesDTO dto)
     {
         ModelMapper m = new ModelMapper();
         Roles rol=m.map(dto,Roles.class);
+        rol.setIdRol(null);
         dS.insert(rol);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("Rol creado exitosamente:" + rol.getNameRole());
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
 
-    public ResponseEntity<?> listarId(@PathVariable("id") Integer id) {
+    public ResponseEntity<?> listarId(@PathVariable("id") Long id) {
         Roles rol = dS.ListId(id);
         if (rol == null) {
             return ResponseEntity
@@ -57,8 +54,7 @@ public class RolesController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public ResponseEntity<String> eliminar(@PathVariable("id") Integer id) {
+    public ResponseEntity<String> eliminar(@PathVariable("id") Long id) {
         Roles rol = dS.ListId(id);
         if (rol == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -69,13 +65,12 @@ public class RolesController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
 
     public ResponseEntity<String> modificar(@RequestBody RolesDTO dto) {
         ModelMapper m = new ModelMapper();
         Roles rol = m.map(dto, Roles.class);
 
-        Roles existente = dS.ListId(Math.toIntExact(rol.getIdRol()));
+        Roles existente = dS.ListId((long) Math.toIntExact(rol.getIdRol()));
         if (existente == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("No se puede modificar. No existe un registro con el ID: " + rol.getIdRol());

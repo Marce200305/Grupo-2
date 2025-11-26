@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import pe.edu.upc.trabajogrupo2.entities.Roles;
 
 @Repository
-public interface IRolesRepository extends JpaRepository<Roles, Integer> {
+public interface IRolesRepository extends JpaRepository<Roles, Long> {
 }

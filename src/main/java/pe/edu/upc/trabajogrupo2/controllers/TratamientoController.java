@@ -87,7 +87,7 @@ public class TratamientoController {
 
 
     @GetMapping("/ranking-progreso")
-    //@PreAuthorize("hasAnyAuthority('ADMIN')")
+    //@PreAuthoritze("hasAnyAuthority('ADMIN')")
     public List<Map<String, Object>> rankingPacientes() {
         List<Object[]> results = tS.rankingPacientes();
 
