@@ -56,7 +56,7 @@ public class PagoController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','PACIENTE')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<String> eliminarPago(@PathVariable("id") Integer id) {
         Pagos p = pS.ListId(id);
         if (p == null) {
@@ -69,7 +69,7 @@ public class PagoController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','PACIENTE')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<String> modificarPago(@RequestBody PagoDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Pagos p = m.map(dto,Pagos.class);

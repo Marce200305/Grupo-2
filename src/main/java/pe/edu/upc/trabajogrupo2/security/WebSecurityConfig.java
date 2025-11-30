@@ -61,19 +61,7 @@ public class WebSecurityConfig {
                                 "/login",
                                 "/register",
                                 "/swagger-ui/**",
-                                "/v3/api-docs/**",
-                                "/roles/**",
-                                "/alertas/**",
-                                "/citas/**",
-                                "/diagnosticos/**",
-                                "/historiales/**",
-                                "/pagos/**",
-                                "/reportes/**",
-                                "/sesiones/**",
-                                "/tecnicas/**",
-                                "/tratamientos/**",
-                                "/usuarios/**",
-                                "/videoconferencias/**"
+                                "/v3/api-docs/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

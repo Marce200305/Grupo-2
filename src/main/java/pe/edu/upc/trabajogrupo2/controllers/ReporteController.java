@@ -21,7 +21,7 @@ public class ReporteController {
     private IReporteService rS;
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA','PACIENTE')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA','PACIENTE')")
     public List<ReporteDTOList> listarReportes() {
         return rS.List().stream().map(r->{
             ModelMapper m = new ModelMapper();
@@ -40,7 +40,7 @@ public class ReporteController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA')")
     public ResponseEntity<?> listarReportePorId(@PathVariable("id") Integer id) {
         Reporte r = rS.ListId(id);
         if (r == null) {
@@ -54,7 +54,7 @@ public class ReporteController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA')")
     public ResponseEntity<String> eliminarReporte(@PathVariable("id") Integer id) {
         Reporte r = rS.ListId(id);
         if (r == null) {
@@ -67,7 +67,7 @@ public class ReporteController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA')")
     public ResponseEntity<String> modificarReporte(@RequestBody ReporteDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Reporte r = m.map(dto,Reporte.class);

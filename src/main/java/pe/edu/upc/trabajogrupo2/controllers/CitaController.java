@@ -23,6 +23,7 @@ public class CitaController {
     private ICitasService cS;
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA','PACIENTE')")
     public List<CitaDTOList> listarCitas() {
         return cS.List().stream().map(a->{
             ModelMapper m = new ModelMapper();
@@ -31,7 +32,7 @@ public class CitaController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA','PACIENTE')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA','PACIENTE')")
     public ResponseEntity<String> insertarCita(@RequestBody CitaDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Citas c = m.map(dto,Citas.class);
@@ -41,7 +42,7 @@ public class CitaController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA')")
     public ResponseEntity<?> listarCitaPorId(@PathVariable("id") Integer id) {
         Citas c = cS.ListId(id);
         if (c == null) {
@@ -55,7 +56,7 @@ public class CitaController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA','PACIENTE')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA','PACIENTE')")
     public ResponseEntity<String> eliminarCita(@PathVariable("id") Integer id) {
         Citas c = cS.ListId(id);
         if (c == null) {
@@ -68,7 +69,7 @@ public class CitaController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA','PACIENTE')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA','PACIENTE')")
     public ResponseEntity<String> modificarCita(@RequestBody CitaDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Citas c = m.map(dto,Citas.class);

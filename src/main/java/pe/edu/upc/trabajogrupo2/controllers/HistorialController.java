@@ -23,7 +23,7 @@ public class HistorialController {
     private IHistorialService hS;
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA','PACIENTE')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA','PACIENTE')")
     public List<HistorialDTOList> listarHistoriales() {
         return hS.List().stream().map(h->{
             ModelMapper m = new ModelMapper();
@@ -32,7 +32,7 @@ public class HistorialController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA')")
     public ResponseEntity<String> insertarHistorial(@RequestBody HistorialDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Historial h = m.map(dto,Historial.class);
@@ -42,7 +42,7 @@ public class HistorialController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA')")
     public ResponseEntity<?> listarHistorialPorId(@PathVariable("id") Integer id) {
         Historial h = hS.ListId(id);
         if (h == null) {
@@ -56,7 +56,7 @@ public class HistorialController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA')")
 
     public ResponseEntity<String> eliminarHistorial(@PathVariable("id") Integer id) {
         Historial h = hS.ListId(id);
@@ -70,7 +70,7 @@ public class HistorialController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA')")
 
     public ResponseEntity<String> modificarHistorial(@RequestBody HistorialDTOInsert dto) {
         ModelMapper m = new ModelMapper();
@@ -85,7 +85,7 @@ public class HistorialController {
         return ResponseEntity.ok("Historial "+h.getDocumentacionHistorial()+" modificado");
     }
     @GetMapping("/queryhistorial")
-    @PreAuthorize("hasAnyAuthority('ADMIN','PACIENTE')")
+    @PreAuthorize("hasAnyAuthority('PACIENTE')")
     public ResponseEntity<?>buscarhistorial(@RequestParam Integer idUsuario){
         List<String> historial = hS.findDocumentacionByUsuarioId(idUsuario);
 

@@ -26,7 +26,7 @@ public class VideoconferenciaController {
     private IVideoconferenciasService vcS;
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA','PACIENTE')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA','PACIENTE')")
     public List<VideoconferenciaDTOList> listarVideoconferencias() {
         return vcS.List().stream().map(vc->{
             ModelMapper m = new ModelMapper();
@@ -35,7 +35,7 @@ public class VideoconferenciaController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA','PACIENTE')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA','PACIENTE')")
     public ResponseEntity<String> insertarVideoconferencia(@RequestBody VideoconferenciaDTOInsert dto) {
         ModelMapper m = new ModelMapper();
         Videoconferencias vc = m.map(dto, Videoconferencias.class);
@@ -45,7 +45,7 @@ public class VideoconferenciaController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA','PACIENTE')")
     public ResponseEntity<?> listarVideoconferenciaPorId(@PathVariable("id") Integer id) {
         Videoconferencias vc = vcS.ListId(id);
         if (vc == null) {
@@ -59,7 +59,7 @@ public class VideoconferenciaController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA','PACIENTE')")
     public ResponseEntity<String> eliminarVideoconferencia(@PathVariable("id") Integer id) {
         Videoconferencias vc = vcS.ListId(id);
         if (vc == null) {

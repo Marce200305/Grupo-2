@@ -26,7 +26,7 @@ public class DiagnosticoController {
     private IDiagnosticosService dS;
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA','PACIENTE')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA','PACIENTE')")
 
     public List<DiagnosticoDTOList> listarDiagnosticos() {
         return dS.List().stream().map(a->{
@@ -47,7 +47,7 @@ public class DiagnosticoController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','TERAPEUTA')")
+    @PreAuthorize("hasAnyAuthority('TERAPEUTA')")
 
     public ResponseEntity<?> listarDiagnosticoPorId(@PathVariable("id") Integer id) {
         Diagnosticos d = dS.ListId(id);
