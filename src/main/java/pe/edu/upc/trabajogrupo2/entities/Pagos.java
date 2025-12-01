@@ -20,7 +20,7 @@ public class Pagos {
     @Column(name = "montoPagos", nullable = false)
     private double montoPago;
 
-    @Column(name = "passapiPagos", columnDefinition = "JSONB",nullable = false)
+    @Column(name = "passapiPagos", columnDefinition = "TEXT",nullable = false)
     private String passApiPago;
 
     @Column(name = "fechaPagos", nullable = false)

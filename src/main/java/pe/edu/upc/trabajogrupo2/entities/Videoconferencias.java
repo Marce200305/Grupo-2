@@ -23,7 +23,7 @@ public class Videoconferencias {
     @Column(name = "star_urlVideoconferencia", columnDefinition = "TEXT",nullable = false)
     private String starUrlVideoconferencia;
 
-    @Column(name = "pass_apiVideoconferencia", columnDefinition = "JSONB",nullable = false)
+    @Column(name = "pass_apiVideoconferencia", columnDefinition = "TEXT",nullable = false)
     private String passApiVideoconferencia;
 
 
