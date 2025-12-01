@@ -11,7 +11,6 @@ public class UsuarioDTOInsert {
     private LocalDate fechaNacimiento;
     private String gmailUsuario;
     private int DNIUsuario;
-    private String contrasenaUsuario;
     private String apoderadoUsuario;
     private Boolean enabled;
     private String password;
@@ -88,14 +87,6 @@ public class UsuarioDTOInsert {
 
     public void setDNIUsuario(int DNIUsuario) {
         this.DNIUsuario = DNIUsuario;
-    }
-
-    public String getContrasenaUsuario() {
-        return contrasenaUsuario;
-    }
-
-    public void setContrasenaUsuario(String contrasenaUsuario) {
-        this.contrasenaUsuario = contrasenaUsuario;
     }
 
     public String getApoderadoUsuario() {
